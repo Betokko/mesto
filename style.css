@@ -3,3 +3,35 @@
   color: #fff;
   font-family: 'Inter', sans-serif;
 }
+
+.card-grid {
+  margin: 50px auto 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 17px;
+  max-width: 880px;
+}
+
+.card-grid__item {
+  border: 1px solid red;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-grid__image {
+  padding-top: 100%;
+}
+
+.card-grid__info {
+  height: 79px;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  justify-content: center;
+}
+
+.card-grid__title {}
+
+.card-grid__icon {}
