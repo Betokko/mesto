@@ -5,6 +5,12 @@
     border: 2px solid #fff;
     position: relative;
     box-sizing: border-box;
+    cursor: pointer;
+    transition: opacity .2s;
+}
+
+.profile__add-button:hover {
+    opacity: .6;
 }
 
 @media (max-width: 1023px) {
