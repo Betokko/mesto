@@ -4,34 +4,25 @@
   font-family: 'Inter', sans-serif;
 }
 
-.card-grid {
-  margin: 50px auto 0;
+.insert-card {
+  max-width: 880px;
+  margin: 0 auto;
   padding: 0;
-  list-style: none;
+  list-style-type: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 17px;
-  max-width: 880px;
 }
 
-.card-grid__item {
-  border: 1px solid red;
+.insert-card__item {
+  background-color: aquamarine;
+  height: 100px;
+  opacity: .5;
   border-radius: 10px;
-  overflow: hidden;
 }
 
-.card-grid__image {
-  padding-top: 100%;
-}
+.insert-card__info {}
 
-.card-grid__info {
-  height: 79px;
-  background-color: #fff;
-  color: #000;
-  display: flex;
-  justify-content: center;
-}
+.insert-card__title {}
 
-.card-grid__title {}
-
-.card-grid__icon {}
+.insert-card__icon {}
