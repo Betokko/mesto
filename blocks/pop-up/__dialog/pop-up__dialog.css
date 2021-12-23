@@ -1,0 +1,21 @@
+.pop-up__dialog {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 36px;
+    margin: 0;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #000;
+    position: relative;
+}
+
+@media (max-width: 767px) {
+    .pop-up__dialog {
+        width: calc(100% - 38px);
+        margin: 0 19px;
+        padding: 25px 22px;
+
+    }
+}
