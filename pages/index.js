@@ -22,13 +22,6 @@ closeBtn.addEventListener('click', () => {
     page.classList.remove('page_stop-scroll')
 })
 
-function formSubmitHandler(evt) {
-    evt.preventDefault();
-    profileName.textContent = formName.value;
-    profileDescr.textContent = formDescr.value;
-    console.log(111);
-}
-
 formElement.addEventListener('submit', (e) => {
     e.preventDefault();
     profileName.textContent = formName.value;
