@@ -3,6 +3,7 @@
     height: 19px;
     transform: opacity .2s;
     cursor: pointer;
+    object-fit: contain;
 }
 
 .insert-card__icon:hover {
