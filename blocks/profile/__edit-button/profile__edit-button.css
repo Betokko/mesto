@@ -2,12 +2,13 @@
     width: 24px;
     height: 24px;
     position: absolute;
-    right: -42px;
-    bottom: 8px;
+    right: -43px;
+    bottom: 39px;
     cursor: pointer;
     transition: opacity .2s;
 }
-.profile__edit-button:hover{
+
+.profile__edit-button:hover {
     opacity: .6;
 }
 
@@ -16,6 +17,6 @@
         width: 18px;
         height: 18px;
         right: -28px;
-        bottom: 8px;
+        bottom: 32px;
     }
 }
