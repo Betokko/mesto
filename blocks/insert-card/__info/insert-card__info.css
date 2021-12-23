@@ -1,0 +1,7 @@
+.insert-card__info {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px 0 15px;
+}

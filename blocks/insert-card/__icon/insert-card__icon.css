@@ -1,0 +1,10 @@
+.insert-card__icon {
+    min-width: 22px;
+    height: 19px;
+    transform: opacity .2s;
+    cursor: pointer;
+}
+
+.insert-card__icon:hover {
+    opacity: .6;
+}

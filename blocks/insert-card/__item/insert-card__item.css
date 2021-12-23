@@ -1,0 +1,8 @@
+.insert-card__item {
+    height: 100px;
+    border-radius: 10px;
+    height: 100%;
+    overflow: hidden;
+    background-color: #fff;
+    color: #000;
+}
