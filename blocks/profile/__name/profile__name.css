@@ -3,13 +3,14 @@
     line-height: 48px;
     font-weight: 500;
     margin: 0;
-    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 @media (max-width: 1023px) {
     .profile__name {
         font-size: 27px;
         line-height: 32.68px;
-        text-align: center;
     }
 }
