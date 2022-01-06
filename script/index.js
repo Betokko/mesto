@@ -67,6 +67,7 @@ formElementCard.addEventListener('submit', (e) => {
   formModalCard.classList.remove('pop-up_enabled');
   clearInsertCard()
   renderInsertCard();
+  likeChecker()
 })
 
 // Рендер карточек
@@ -118,3 +119,22 @@ function clearInsertCard() {
 };
 
 renderInsertCard()
+
+// Лайки
+
+ function likeChecker() {
+  let likeButttons = document.querySelectorAll('.insert-card__icon')
+  likeButttons = Array.from(likeButttons);
+  likeButttons.forEach(elem => {
+    elem.addEventListener('click', (e) => {
+     e.target.classList.toggle('like_active');
+     if (e.target.classList.contains('like_active')) {
+       e.target.src = './images/like-active.png'
+     } else {
+       e.target.src = './images/like-disabled.png'
+     }
+    })
+  })
+ }
+
+ likeChecker()
