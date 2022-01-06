@@ -38,13 +38,24 @@
             © 2020 Mesto Russia
         </p>
     </footer>
-    <div class="pop-up">
-        <form class="pop-up__body">
+    <div class="pop-up pop-up_profile">
+        <form class="pop-up__body pop-up__body_profile">
             <fieldset class="pop-up__dialog">
-                <img class="pop-up__close-btn" src="./images/close-Icon.png" alt="кнопка закрыть">
+                <img class="pop-up__close-btn pop-up__close-btn_profile" src="./images/close-Icon.png" alt="кнопка закрыть">
                 <h2 class="pop-up__title">Редактировать профиль</h2>
                 <input type="text" name="name" id="user-name" class="pop-up__text-input pop-up__name" value="">
                 <input type="text" name="descr" id="user-desct" class="pop-up__text-input pop-up__descr" value="">
+                <input type="submit" name="submit" id="submit" class="pop-up__submit-btn" value="Сохранить">
+            </fieldset>
+        </form>
+    </div>
+    <div class="pop-up pop-up_card">
+        <form class="pop-up__body pop-up__body_card">
+            <fieldset class="pop-up__dialog">
+                <img class="pop-up__close-btn pop-up__close-btn_card" src="./images/close-Icon.png" alt="кнопка закрыть">
+                <h2 class="pop-up__title">Новое место</h2>
+                <input type="text" name="name" id="user-name" class="pop-up__text-input pop-up__name" value="" placeholder="Название">
+                <input type="text" name="descr" id="user-desct" class="pop-up__text-input pop-up__descr" value="" placeholder="Ссылка на картинку">
                 <input type="submit" name="submit" id="submit" class="pop-up__submit-btn" value="Сохранить">
             </fieldset>
         </form>
