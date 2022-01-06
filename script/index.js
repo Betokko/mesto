@@ -29,3 +29,47 @@ formElement.addEventListener('submit', (e) => {
     profileDescr.textContent = formDescr.value;
     formModal.classList.remove('pop-up_enabled');
 });
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+]; 
+
+const insertCardContainer = document.querySelector('.insert-card');
+const insertCardTemplate = document.querySelector('#insert-card').content;
+const insertCardElement = insertCardTemplate.querySelector('.insert-card__item');
+
+
+
+function renderInsertCard() {
+  initialCards.forEach((elem) => {
+    let insertCardElementCopy = insertCardElement.cloneNode(true);
+    insertCardElementCopy.querySelector('.insert-card__img').src = `${elem.link}`;
+    insertCardElementCopy.querySelector('.insert-card__img').alt = `${elem.name}`;
+    insertCardElementCopy.querySelector('.insert-card__title').textContent = `${elem.name}`;
+    insertCardContainer.append(insertCardElementCopy)
+  })
+};
+renderInsertCard();
