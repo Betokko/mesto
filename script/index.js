@@ -32,6 +32,7 @@ formElement.addEventListener('submit', (e) => {
     formModal.classList.remove('pop-up_enabled');
 });
 
+
 // Форма добавления карточки
 
 let formModalCard = document.querySelector('.pop-up_card');
@@ -52,7 +53,9 @@ function modalTogglerCard() {
   formModalCard.classList.toggle('pop-up_enabled')
 }
 
+
 // Сохранение карточки
+
 let cardName = document.querySelector('.pop-up__card-name');
 let cardDescr = document.querySelector('.pop-up__card-descr');
 
@@ -67,8 +70,11 @@ formElementCard.addEventListener('submit', (e) => {
   formModalCard.classList.remove('pop-up_enabled');
   clearInsertCard()
   renderInsertCard();
-  likeChecker()
+  likeChecker();
+  removeInsertCard();
+
 })
+
 
 // Рендер карточек
 
@@ -120,6 +126,7 @@ function clearInsertCard() {
 
 renderInsertCard()
 
+
 // Лайки
 
  function likeChecker() {
@@ -138,3 +145,17 @@ renderInsertCard()
  }
 
  likeChecker()
+
+
+//  Удаление
+
+function removeInsertCard() {
+  let removeButtons = document.querySelectorAll('.insert-card__remove');
+  removeButtons = Array.from(removeButtons);
+  removeButtons.forEach(elem => {
+    elem.addEventListener('click', (e) => {
+      e.target.parentNode.remove()
+    })
+  })
+}
+removeInsertCard()
