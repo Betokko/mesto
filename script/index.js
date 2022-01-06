@@ -52,6 +52,23 @@ function modalTogglerCard() {
   formModalCard.classList.toggle('pop-up_enabled')
 }
 
+// Сохранение карточки
+let cardName = document.querySelector('.pop-up__card-name');
+let cardDescr = document.querySelector('.pop-up__card-descr');
+
+formElementCard.addEventListener('submit', (e) => {
+  e.preventDefault();
+  initialCards.unshift(
+    {
+      name: `${cardName.value}`,
+      link: `${cardDescr.value}`
+    },
+  )
+  formModalCard.classList.remove('pop-up_enabled');
+  clearInsertCard()
+  renderInsertCard();
+})
+
 // Рендер карточек
 
 const initialCards = [
@@ -95,5 +112,9 @@ function renderInsertCard() {
   })
 };
 
-renderInsertCard();
+function clearInsertCard() {
+  let childrenArray = Array.from(insertCardContainer.children);
+  childrenArray.forEach(elem => elem.remove())
+};
 
+renderInsertCard()
