@@ -2,75 +2,88 @@
 <html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Проект: Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Проект: Место</title>
+  <link rel="stylesheet" href="./pages/index.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="page">
-    <header class="header">
-        <img class="header__logo" src="./images/logo.png" alt="Логотип">
-    </header>
-    <main class="content">
-        <section class="profile">
-            <img class="profile__image" src="./images/profile.jpg" alt="Изображение профиля">
-            <div class="profile__info">
-                <div class="profile__title">
-                    <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <img src="./images/edit-btn.svg" alt="иконка редактировать" class="profile__edit-button">
-                </div>
-                <p class="profile__description">Исследователь океана</p>
-            </div>
-            <div class="profile__add-button"></div>
-        </section>
-        <section>
-            <ul class="insert-card">
+  <header class="header">
+    <img class="header__logo" src="./images/logo.png" alt="Логотип">
+  </header>
+  <main class="content">
+    <section class="profile">
+      <img class="profile__image" src="./images/profile.jpg" alt="Изображение профиля">
+      <div class="profile__info">
+        <div class="profile__title">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <img src="./images/edit-btn.svg" alt="иконка редактировать" class="profile__edit-button">
+        </div>
+        <p class="profile__description">Исследователь океана</p>
+      </div>
+      <div class="profile__add-button"></div>
+    </section>
+    <section>
+      <ul class="insert-card">
 
-            </ul>
-        </section>
+      </ul>
+    </section>
 
-    </main>
-    <footer class="footer">
-        <p class="footer__copy">
-            © 2020 Mesto Russia
-        </p>
-    </footer>
-    <div class="pop-up pop-up_profile">
-        <form class="pop-up__body pop-up__body_profile">
-            <fieldset class="pop-up__dialog">
-                <img class="pop-up__close-btn pop-up__close-btn_profile" src="./images/close-Icon.png" alt="кнопка закрыть">
-                <h2 class="pop-up__title">Редактировать профиль</h2>
-                <input type="text" name="name" id="user-name" class="pop-up__text-input pop-up__name" value="">
-                <input type="text" name="descr" id="user-desct" class="pop-up__text-input pop-up__descr" value="">
-                <input type="submit" name="submit" id="submit" class="pop-up__submit-btn" value="Сохранить">
-            </fieldset>
-        </form>
+  </main>
+  <footer class="footer">
+    <p class="footer__copy">
+      © 2020 Mesto Russia
+    </p>
+  </footer>
+  <div class="pop-up pop-up_profile">
+    <form class="pop-up__body pop-up__body_profile">
+      <fieldset class="pop-up__dialog">
+        <img class="pop-up__close-btn pop-up__close-btn_profile" src="./images/close-Icon.png" alt="кнопка закрыть">
+        <h2 class="pop-up__title">Редактировать профиль</h2>
+        <input type="text" name="name" id="user-name" class="pop-up__text-input pop-up__name" value="">
+        <input type="text" name="descr" id="user-desct" class="pop-up__text-input pop-up__descr" value="">
+        <input type="submit" name="submit" id="submit" class="pop-up__submit-btn" value="Сохранить">
+      </fieldset>
+    </form>
+  </div>
+  <div class="pop-up pop-up_card">
+    <form class="pop-up__body pop-up__body_card">
+      <fieldset class="pop-up__dialog">
+        <img class="pop-up__close-btn pop-up__close-btn_card" src="./images/close-Icon.png" alt="кнопка закрыть">
+        <h2 class="pop-up__title">Новая девочка</h2>
+        <input type="text" name="name" id="user-name" class="pop-up__text-input pop-up__name pop-up__card-name" value=""
+          placeholder="Название">
+        <input type="text" name="descr" id="user-desct" class="pop-up__text-input pop-up__descr pop-up__card-descr"
+          value="" placeholder="Ссылка на картинку">
+        <input type="submit" name="submit" id="submit" class="pop-up__submit-btn" value="Сохранить">
+      </fieldset>
+    </form>
+  </div>
+  <div class="pop-up pop-up_img">
+    <div class="pop-up__body pop-up__body_img">
+      <div class="pop-up__image-container">
+        <img class="pop-up__close-btn pop-up__close-btn_img" src="./images/close-Icon.png" alt="кнопка закрыть">
+        <img class="pop-up__image"
+          src=""
+          alt="">
+        <p class="pop-up__image-descr"></p>
+      </div>
     </div>
-    <div class="pop-up pop-up_card">
-        <form class="pop-up__body pop-up__body_card">
-            <fieldset class="pop-up__dialog">
-                <img class="pop-up__close-btn pop-up__close-btn_card" src="./images/close-Icon.png" alt="кнопка закрыть">
-                <h2 class="pop-up__title">Новая девочка</h2>
-                <input type="text" name="name" id="user-name" class="pop-up__text-input pop-up__name pop-up__card-name" value="" placeholder="Название">
-                <input type="text" name="descr" id="user-desct" class="pop-up__text-input pop-up__descr pop-up__card-descr" value="" placeholder="Ссылка на картинку">
-                <input type="submit" name="submit" id="submit" class="pop-up__submit-btn" value="Сохранить">
-            </fieldset>
-        </form>
-    </div>
-    <template id="insert-card">
-        <li class="insert-card__item">
-            <img class="insert-card__img" src="" alt="">
-            <img class="insert-card__remove" src="./images/remove-icon.png" alt="">
-            <div class="insert-card__info">
-                <h2 class="insert-card__title"></h2>
-                <img class="insert-card__icon" src="./images/like-disabled.png" alt="иконка">
-            </div>
-        </li>
-    </template>
-    <script src="./script/index.js"></script>
+  </div>
+  <template id="insert-card">
+    <li class="insert-card__item">
+      <img class="insert-card__img" src="" alt="">
+      <img class="insert-card__remove" src="./images/remove-icon.png" alt="">
+      <div class="insert-card__info">
+        <h2 class="insert-card__title"></h2>
+        <img class="insert-card__icon" src="./images/like-disabled.png" alt="иконка">
+      </div>
+    </li>
+  </template>
+  <script src="./script/index.js"></script>
 </body>
 
 </html>

@@ -72,6 +72,7 @@ formElementCard.addEventListener('submit', (e) => {
   renderInsertCard();
   likeChecker();
   removeInsertCard();
+  renderModalImg()
 
 })
 
@@ -147,7 +148,7 @@ renderInsertCard()
  likeChecker()
 
 
-//  Удаление
+//  Удаление карточек
 
 function removeInsertCard() {
   let removeButtons = document.querySelectorAll('.insert-card__remove');
@@ -159,3 +160,37 @@ function removeInsertCard() {
   })
 }
 removeInsertCard()
+
+// попап с картинкой
+
+let modalImg = document.querySelector('.pop-up_img');
+let closeBtnImg = document.querySelector('.pop-up__close-btn_img');
+
+function openModalImg(target) {
+  let modalImgItem = document.querySelector('.pop-up__image');
+  let modalImgText = document.querySelector('.pop-up__image-descr');
+  modalImg.classList.toggle('pop-up_enabled');
+  modalImgItem.src = `${target.src}`;
+  modalImgText.textContent = `${target.alt}`;
+}
+
+function closeModalImg() {
+  closeBtnImg.addEventListener('click', () => {
+    modalImg.classList.remove('pop-up_enabled');
+  })
+}
+closeModalImg()
+
+function renderModalImg() {
+  let imgButtons = document.querySelectorAll('.insert-card__img');
+  imgButtons = Array.from(imgButtons)
+  imgButtons.forEach(elem => {
+    elem.addEventListener('click', (e) => {
+      openModalImg(e.target)
+    })
+  })
+}
+
+renderModalImg()
+
+
