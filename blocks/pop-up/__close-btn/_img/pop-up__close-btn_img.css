@@ -4,9 +4,15 @@
     right: -40px;
     padding-bottom: 8px;
     align-self: flex-end;
+    transition: opacity .2s;
 }
+
+.pop-up__clos6e-btn_img:hover {
+    opacity: .6s;
+}
+
 @media (max-width: 767px) {
-    .pop-up__close-btn_img{
+    .pop-up__close-btn_img {
         right: 0;
         padding-bottom: 16px;
     }
