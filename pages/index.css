@@ -27,6 +27,7 @@
 @import url('../blocks/insert-card/__title/insert-card__title.css');
 @import url('../blocks/insert-card/__icon/insert-card__icon.css');
 @import url('../blocks/insert-card/__remove/insert_card__remove.css');
+@import url('../blocks/insert-card/__icon/_active/insert-card__icon_active.css');
 
 /* footer */
 @import url('../blocks/footer/footer.css');

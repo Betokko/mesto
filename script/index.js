@@ -1,83 +1,4 @@
-// Форма редактирования профиля
-
-let formModal = document.querySelector('.pop-up_profile');
-let formElement = document.querySelector('.pop-up__body_profile');
-let openBtn = document.querySelector('.profile__edit-button');
-let closeBtn = document.querySelector('.pop-up__close-btn_profile');
-
-let profileName = document.querySelector('.profile__name')
-let profileDescr = document.querySelector('.profile__description')
-let formName = document.querySelector('.pop-up__name')
-let formDescr = document.querySelector('.pop-up__descr')
-
-function modalToggler() {
-  formModal.classList.toggle('pop-up_enabled');
-}
-
-openBtn.addEventListener('click', () => {
-  modalToggler()
-  formName.value = profileName.textContent;
-  formDescr.value = profileDescr.textContent;
-});
-
-
-closeBtn.addEventListener('click', () => {
-  modalToggler()
-})
-
-formElement.addEventListener('submit', (e) => {
-    e.preventDefault();
-    profileName.textContent = formName.value;
-    profileDescr.textContent = formDescr.value;
-    formModal.classList.remove('pop-up_enabled');
-});
-
-
-// Форма добавления карточки
-
-let formModalCard = document.querySelector('.pop-up_card');
-let formElementCard = document.querySelector('.pop-up__body_card');
-let openBtnCard = document.querySelector('.profile__add-button');
-let closeBtnCard = document.querySelector('.pop-up__close-btn_card');
-
-
-openBtnCard.addEventListener('click', () => {
-  modalTogglerCard()
-});
-
-closeBtnCard.addEventListener('click', () => {
-  modalTogglerCard()
-})
-
-function modalTogglerCard() {
-  formModalCard.classList.toggle('pop-up_enabled')
-}
-
-
-// Сохранение карточки
-
-let cardName = document.querySelector('.pop-up__card-name');
-let cardDescr = document.querySelector('.pop-up__card-descr');
-
-formElementCard.addEventListener('submit', (e) => {
-  e.preventDefault();
-  initialCards.unshift(
-    {
-      name: `${cardName.value}`,
-      link: `${cardDescr.value}`
-    },
-  )
-  formModalCard.classList.remove('pop-up_enabled');
-  clearInsertCard()
-  renderInsertCard();
-  likeChecker();
-  removeInsertCard();
-  renderModalImg()
-
-})
-
-
-// Рендер карточек
+// Global scope
 
 const initialCards = [
   {
@@ -105,92 +26,146 @@ const initialCards = [
     link: 'https://images.unsplash.com/photo-1548626008-5bdca8c9552a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80'
   }
 ]; 
-
+const formModalProfile = document.querySelector('.pop-up_profile');
+const formElementProfile = document.querySelector('.pop-up__body_profile');
+const openBtnProfile = document.querySelector('.profile__edit-button');
+const closeBtnProfile = document.querySelector('.pop-up__close-btn_profile');
+const profileName = document.querySelector('.profile__name')
+const profileDescr = document.querySelector('.profile__description')
+const formName = document.querySelector('.pop-up__name')
+const formDescr = document.querySelector('.pop-up__descr')
+const formModalCard = document.querySelector('.pop-up_card');
+const formElementCard = document.querySelector('.pop-up__body_card');
+const openBtnCard = document.querySelector('.profile__add-button');
+const closeBtnCard = document.querySelector('.pop-up__close-btn_card');
+const cardName = document.querySelector('.pop-up__card-name');
+const cardDescr = document.querySelector('.pop-up__card-descr');
 const insertCardContainer = document.querySelector('.insert-card');
 const insertCardTemplate = document.querySelector('#insert-card').content;
 const insertCardElement = insertCardTemplate.querySelector('.insert-card__item');
+const modalImg = document.querySelector('.pop-up_img');
+const closeBtnImg = document.querySelector('.pop-up__close-btn_img');
+const openBtnImg = document.querySelector('.insert-card__img');
+const modalImgItem = document.querySelector('.pop-up__image');
+const modalImgText = document.querySelector('.pop-up__image-descr');
 
-function renderInsertCard() {
+renderCards();
+
+// Функции открытия и закрытия попапов
+
+function openPopup(popup) {
+  popup.classList.add('pop-up_enabled');
+} 
+
+function closePopup(popup) {
+  popup.classList.remove('pop-up_enabled');
+} 
+
+
+// Форма редактирования профиля
+
+openBtnProfile.addEventListener('click', () => {
+  openPopup(formModalProfile)
+  formName.value = profileName.textContent;
+  formDescr.value = profileDescr.textContent;
+});
+
+
+closeBtnProfile.addEventListener('click', () => {
+  closePopup(formModalProfile)
+})
+
+formElementProfile.addEventListener('submit', (e) => {
+  e.preventDefault();
+  profileName.textContent = formName.value;
+  profileDescr.textContent = formDescr.value;
+  closePopup(formModalProfile);
+});
+
+
+// Отрисовка карточек из заданного массива
+
+function renderCards() {
   initialCards.forEach((elem) => {
     let insertCardElementCopy = insertCardElement.cloneNode(true);
     insertCardElementCopy.querySelector('.insert-card__img').src = `${elem.link}`;
     insertCardElementCopy.querySelector('.insert-card__img').alt = `${elem.name}`;
     insertCardElementCopy.querySelector('.insert-card__title').textContent = `${elem.name}`;
+    likeCard(insertCardElementCopy);
+    removeCard(insertCardElementCopy);
+    renderModalImg(insertCardElementCopy);
     insertCardContainer.append(insertCardElementCopy)
   })
 };
 
-function clearInsertCard() {
-  let childrenArray = Array.from(insertCardContainer.children);
-  childrenArray.forEach(elem => elem.remove())
-};
 
-renderInsertCard()
+// Форма добавления карточки
+
+openBtnCard.addEventListener('click', () => {
+  openPopup(formModalCard)
+});
+
+closeBtnCard.addEventListener('click', () => {
+  closePopup(formModalCard);
+})
 
 
+// функционал добавления и отрисовки новой карточки
+
+formElementCard.addEventListener('submit', (e) => {
+  e.preventDefault();
+  insertCardContainer.prepend(createCard(cardName.value, cardDescr.value))
+  e.target.reset();
+  closePopup(formModalCard);
+
+})
+
+function createCard(name, link) {
+  let newCard = insertCardElement.cloneNode(true);
+  let cardPicture = newCard.querySelector('.insert-card__img');
+  let cardDescr = newCard.querySelector('.insert-card__title');
+  cardPicture.src = link;
+  cardPicture.alt = name;
+  cardDescr.textContent = name;
+
+  likeCard(newCard);
+  removeCard(newCard);
+  renderModalImg(newCard)
+  return newCard;
+}
+
+
+// Слушатели событий
 // Лайки
+function likeCard(elem) {
+  elem.addEventListener('click', (e) => {
+    if (e.target === elem.querySelector('.insert-card__icon')) {
+      e.target.classList.toggle('insert-card__icon_active')
+    }
+  })
+}
 
- function likeChecker() {
-  let likeButttons = document.querySelectorAll('.insert-card__icon')
-  likeButttons = Array.from(likeButttons);
-  likeButttons.forEach(elem => {
+// Козина
+function removeCard(elem) {
+  elem.addEventListener('click', (e) => {
+    if (e.target === elem.querySelector('.insert-card__remove')) {
+      e.target.closest('.insert-card__item').remove();
+    }
+  })
+}
+
+// Развертывание изображения карточки по клику на весь экран
+function renderModalImg(elem) {
     elem.addEventListener('click', (e) => {
-     e.target.classList.toggle('like_active');
-     if (e.target.classList.contains('like_active')) {
-       e.target.src = './images/like-active.png'
-     } else {
-       e.target.src = './images/like-disabled.png'
-     }
+      if (e.target === elem.querySelector('.insert-card__img')) {
+        openPopup(modalImg)
+        modalImgItem.src = `${e.target.src}`;
+        modalImgItem.alt = `${e.target.alt}`;
+        modalImgText.textContent = `${e.target.alt}`;
+      }
     })
-  })
- }
-
- likeChecker()
-
-
-//  Удаление карточек
-
-function removeInsertCard() {
-  let removeButtons = document.querySelectorAll('.insert-card__remove');
-  removeButtons = Array.from(removeButtons);
-  removeButtons.forEach(elem => {
-    elem.addEventListener('click', (e) => {
-      e.target.parentNode.remove()
-    })
-  })
-}
-removeInsertCard()
-
-// попап с картинкой
-
-let modalImg = document.querySelector('.pop-up_img');
-let closeBtnImg = document.querySelector('.pop-up__close-btn_img');
-
-function openModalImg(target) {
-  let modalImgItem = document.querySelector('.pop-up__image');
-  let modalImgText = document.querySelector('.pop-up__image-descr');
-  modalImg.classList.toggle('pop-up_enabled');
-  modalImgItem.src = `${target.src}`;
-  modalImgText.textContent = `${target.alt}`;
 }
 
-function closeModalImg() {
-  closeBtnImg.addEventListener('click', () => {
-    modalImg.classList.remove('pop-up_enabled');
-  })
-}
-closeModalImg()
-
-function renderModalImg() {
-  let imgButtons = document.querySelectorAll('.insert-card__img');
-  imgButtons = Array.from(imgButtons)
-  imgButtons.forEach(elem => {
-    elem.addEventListener('click', (e) => {
-      openModalImg(e.target)
-    })
-  })
-}
-
-renderModalImg()
-
-
+closeBtnImg.addEventListener('click', () => {
+  closePopup(modalImg);
+})

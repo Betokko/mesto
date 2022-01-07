@@ -4,6 +4,7 @@
     transform: opacity .2s;
     cursor: pointer;
     object-fit: contain;
+    background-image: url("../../../images/like-disabled.png");
 }
 
 .insert-card__icon:hover {
