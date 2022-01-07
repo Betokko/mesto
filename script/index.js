@@ -117,7 +117,6 @@ formElementCard.addEventListener('submit', (e) => {
   insertCardContainer.prepend(createCard(cardName.value, cardDescr.value))
   e.target.reset();
   closePopup(formModalCard);
-
 })
 
 function createCard(name, link) {
