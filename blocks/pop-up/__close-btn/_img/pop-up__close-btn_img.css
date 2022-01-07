@@ -1,10 +1,13 @@
 .pop-up__close-btn_img {
-    position: static;
+    position: relative;
+    top: 0;
+    right: -40px;
+    padding-bottom: 8px;
     align-self: flex-end;
-    margin-bottom: 8px;
 }
 @media (max-width: 767px) {
     .pop-up__close-btn_img{
-        margin-bottom: 16px;
+        right: 0;
+        padding-bottom: 16px;
     }
 }
