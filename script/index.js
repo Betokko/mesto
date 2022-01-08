@@ -87,14 +87,7 @@ formElementProfile.addEventListener('submit', (e) => {
 
 function renderCards() {
   initialCards.forEach((elem) => {
-    let insertCardElementCopy = insertCardElement.cloneNode(true);
-    insertCardElementCopy.querySelector('.insert-card__img').src = `${elem.link}`;
-    insertCardElementCopy.querySelector('.insert-card__img').alt = `${elem.name}`;
-    insertCardElementCopy.querySelector('.insert-card__title').textContent = `${elem.name}`;
-    likeCard(insertCardElementCopy);
-    removeCard(insertCardElementCopy);
-    renderModalImg(insertCardElementCopy);
-    insertCardContainer.append(insertCardElementCopy)
+    insertCardContainer.append(createCard(elem.name, elem.link))
   })
 };
 
@@ -120,9 +113,9 @@ formElementCard.addEventListener('submit', (e) => {
 })
 
 function createCard(name, link) {
-  let newCard = insertCardElement.cloneNode(true);
-  let cardPicture = newCard.querySelector('.insert-card__img');
-  let cardDescr = newCard.querySelector('.insert-card__title');
+  const newCard = insertCardElement.cloneNode(true);
+  const cardPicture = newCard.querySelector('.insert-card__img');
+  const cardDescr = newCard.querySelector('.insert-card__title');
   cardPicture.src = link;
   cardPicture.alt = name;
   cardDescr.textContent = name;
