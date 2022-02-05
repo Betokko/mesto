@@ -68,6 +68,7 @@ openBtnProfile.addEventListener('click', () => {
   openPopup(formModalProfile)
   formName.value = profileName.textContent;
   formDescr.value = profileDescr.textContent;
+  enableValidation();
 });
 
 
