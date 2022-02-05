@@ -51,6 +51,7 @@ const modalImgText = document.querySelector('.popup__image-descr');
 
 renderCards();
 
+
 // Функции открытия и закрытия попапов
 
 function openPopup(popup) {
@@ -69,11 +70,13 @@ openBtnProfile.addEventListener('click', () => {
   formName.value = profileName.textContent;
   formDescr.value = profileDescr.textContent;
   enableValidation();
+  pressOnEscListener(formModalProfile);
+  clickOnOverlayListener(formModalProfile)
 });
 
 
 closeBtnProfile.addEventListener('click', () => {
-  closePopup(formModalProfile)
+  closePopup(formModalProfile);
 })
 
 formElementProfile.addEventListener('submit', (e) => {
@@ -82,6 +85,7 @@ formElementProfile.addEventListener('submit', (e) => {
   profileDescr.textContent = formDescr.value;
   closePopup(formModalProfile);
 });
+
 
 
 // Отрисовка карточек из заданного массива
@@ -97,6 +101,9 @@ function renderCards() {
 
 openBtnCard.addEventListener('click', () => {
   openPopup(formModalCard)
+  enableValidation();
+  pressOnEscListener(formModalCard);
+  clickOnOverlayListener(formModalCard);
 });
 
 closeBtnCard.addEventListener('click', () => {
@@ -155,6 +162,8 @@ function renderModalImg(elem) {
         modalImgItem.src = `${e.target.src}`;
         modalImgItem.alt = `${e.target.alt}`;
         modalImgText.textContent = `${e.target.alt}`;
+        pressOnEscListener(modalImg);
+        clickOnOverlayListener(modalImg);
       }
     })
 }
@@ -162,3 +171,25 @@ function renderModalImg(elem) {
 closeBtnImg.addEventListener('click', () => {
   closePopup(modalImg);
 })
+
+
+// Закрытие попапов на Esc
+
+function pressOnEscListener(popup) {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+    }
+  })
+}
+
+
+// Закрытие попапов по клику на черный фон
+
+function clickOnOverlayListener(popup) {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target === popup) {
+      closePopup(popup);
+    }
+  })
+}

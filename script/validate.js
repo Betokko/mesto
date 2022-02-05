@@ -3,14 +3,14 @@ const showError = (formElement, inputElement, errorMessage) => {
 
   inputElement.classList.add('popup__input_type_error');
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__error');
+  errorElement.classList.add('popup__error_visible');
 }
 
 const hideError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
   inputElement.classList.remove('popup__input_type_error')
-  errorElement.classList.remove('popup__error');
+  errorElement.classList.remove('popup__error_visible');
   errorElement.textContent = '';
 }
 
@@ -62,5 +62,3 @@ const enableValidation = () => {
     setEventListeners(formElement)
   })
 }
-
-enableValidation();
