@@ -38,37 +38,44 @@
     </p>
   </footer>
 
-  <div class="pop-up pop-up_profile">
-    <form class="pop-up__body pop-up__body_profile popup__form" novalidate>
-      <fieldset class="pop-up__dialog">
-        <img class="pop-up__close-btn pop-up__close-btn_profile" src="./images/close-Icon.png" alt="кнопка закрыть">
-        <h2 class="pop-up__title">Редактировать профиль</h2>
-        <input type="text" name="name" class="popup__input popup__input_type_error pop-up__text-input pop-up__name" value="" required>
-        <input type="text" name="descr" class="popup__input pop-up__text-input pop-up__descr" value="" required>
-        <button type="submit" name="submit" id="submit" class="pop-up__submit-btn">Сохранить</button>
+  <div class="popup popup_profile">
+    <form class="popup__form popup__body popup__body_profile" novalidate>
+      <fieldset class="popup__dialog">
+        <img class="popup__close-btn popup__close-btn_profile" src="./images/close-Icon.png" alt="кнопка закрыть">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input id="profile-text-name" type="text" name="name" class="popup__input popup__text-input popup__name"
+          value="" placeholder="Имя" required minlength="2" maxlength="40">
+        <span class="popup__error profile-text-name-error"></span>
+        <input id="profile-text-descr" type="text" name="descr" class="popup__input popup__text-input popup__descr"
+          value="" placeholder="О себе" required minlength="2" maxlength="200">
+        <span class="popup__error profile-text-descr-error"></span>
+        <button type="submit" name="submit" id="submit" class="popup__button">Сохранить</button>
       </fieldset>
     </form>
   </div>
 
-  <div class="pop-up pop-up_card">
-    <form class="pop-up__body pop-up__body_card popup__form" novalidate>
-      <fieldset class="pop-up__dialog">
-        <img class="pop-up__close-btn pop-up__close-btn_card" src="./images/close-Icon.png" alt="кнопка закрыть">
-        <h2 class="pop-up__title">Новая девочка</h2>
-        <input type="text" name="name" id="user-name-card" class="pop-up__text-input pop-up__name pop-up__card-name"
-          value="" placeholder="Название" required>
-        <input type="text" name="descr" id="user-desct-card" class="pop-up__text-input pop-up__descr pop-up__card-descr"
-          value="" placeholder="Ссылка на картинку" required>
-        <button type="submit" name="submit" id="submit-card" class="pop-up__submit-btn">Сохранить</button>
+  <div class="popup popup_card">
+    <form class="popup__form popup__body popup__body_card" novalidate>
+      <fieldset class="popup__dialog">
+        <img class="popup__close-btn popup__close-btn_card" src="./images/close-Icon.png" alt="кнопка закрыть">
+        <h2 class="popup__title">Новая девочка</h2>
+        <input id="card-text-name" type="text" name="name"
+          class="popup__input popup__text-input popup__name popup__card-name" value="" placeholder="Название"  required minlength="2" maxlength="30">
+        <span class="popup__error card-text-name-error"></span>
+        <input id="card-url-descr" type="url" name="descr"
+          class="popup__input popup__text-input popup__descr popup__card-descr" value=""
+          placeholder="Ссылка на картинку" required>
+        <span class="popup__error card-url-descr-error"></span>
+        <button type="submit" name="submit" id="submit-card" class="popup__button popup__submit-btn">Сохранить</button>
       </fieldset>
     </form>
   </div>
 
-  <div class="pop-up pop-up_img">
-    <div class="pop-up__image-container">
-      <img class="pop-up__close-btn pop-up__close-btn_img" src="./images/close-Icon.png" alt="кнопка закрыть">
-      <img class="pop-up__image" src="#" alt="#">
-      <p class="pop-up__image-descr"></p>
+  <div class="popup popup_img">
+    <div class="popup__image-container">
+      <img class="popup__close-btn popup__close-btn_img" src="./images/close-Icon.png" alt="кнопка закрыть">
+      <img class="popup__image" src="#" alt="#">
+      <p class="popup__image-descr"></p>
     </div>
   </div>
   <template id="insert-card">

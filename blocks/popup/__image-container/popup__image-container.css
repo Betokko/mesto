@@ -1,0 +1,16 @@
+.popup__image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    height: fit-content;
+    width: fit-content;
+    max-height: 75vh;
+    max-width: 75vw;
+}
+
+@media (max-width: 767px) {
+    .popup__image-container {
+        max-width: calc(100% - 80px);
+    }
+}

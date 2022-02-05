@@ -1,0 +1,13 @@
+.popup__error {
+    display: none;
+    font-size: 12px;
+    line-height: 14, 52px;
+    color: #f00;
+}
+
+.profile-text-name-error,
+.profile-text-descr-error,
+.card-url-descr-error,
+.card-text-name-error {
+    display: block;
+}

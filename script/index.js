@@ -26,39 +26,39 @@ const initialCards = [
     link: 'https://images.unsplash.com/photo-1548626008-5bdca8c9552a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80'
   }
 ]; 
-const formModalProfile = document.querySelector('.pop-up_profile');
-const formElementProfile = document.querySelector('.pop-up__body_profile');
+const formModalProfile = document.querySelector('.popup_profile');
+const formElementProfile = document.querySelector('.popup__body_profile');
 const openBtnProfile = document.querySelector('.profile__edit-button');
-const closeBtnProfile = document.querySelector('.pop-up__close-btn_profile');
+const closeBtnProfile = document.querySelector('.popup__close-btn_profile');
 const profileName = document.querySelector('.profile__name')
 const profileDescr = document.querySelector('.profile__description')
-const formName = document.querySelector('.pop-up__name')
-const formDescr = document.querySelector('.pop-up__descr')
-const formModalCard = document.querySelector('.pop-up_card');
-const formElementCard = document.querySelector('.pop-up__body_card');
+const formName = document.querySelector('.popup__name')
+const formDescr = document.querySelector('.popup__descr')
+const formModalCard = document.querySelector('.popup_card');
+const formElementCard = document.querySelector('.popup__body_card');
 const openBtnCard = document.querySelector('.profile__add-button');
-const closeBtnCard = document.querySelector('.pop-up__close-btn_card');
-const cardName = document.querySelector('.pop-up__card-name');
-const cardDescr = document.querySelector('.pop-up__card-descr');
+const closeBtnCard = document.querySelector('.popup__close-btn_card');
+const cardName = document.querySelector('.popup__card-name');
+const cardDescr = document.querySelector('.popup__card-descr');
 const insertCardContainer = document.querySelector('.insert-card');
 const insertCardTemplate = document.querySelector('#insert-card').content;
 const insertCardElement = insertCardTemplate.querySelector('.insert-card__item');
-const modalImg = document.querySelector('.pop-up_img');
-const closeBtnImg = document.querySelector('.pop-up__close-btn_img');
+const modalImg = document.querySelector('.popup_img');
+const closeBtnImg = document.querySelector('.popup__close-btn_img');
 const openBtnImg = document.querySelector('.insert-card__img');
-const modalImgItem = document.querySelector('.pop-up__image');
-const modalImgText = document.querySelector('.pop-up__image-descr');
+const modalImgItem = document.querySelector('.popup__image');
+const modalImgText = document.querySelector('.popup__image-descr');
 
 renderCards();
 
 // Функции открытия и закрытия попапов
 
 function openPopup(popup) {
-  popup.classList.add('pop-up_enabled');
+  popup.classList.add('popup_enabled');
 } 
 
 function closePopup(popup) {
-  popup.classList.remove('pop-up_enabled');
+  popup.classList.remove('popup_enabled');
 } 
 
 

@@ -1,0 +1,19 @@
+.popup__close-btn_img {
+    position: relative;
+    top: 0;
+    right: -40px;
+    padding-bottom: 8px;
+    align-self: flex-end;
+    transition: opacity .2s;
+}
+
+.popup__clos6e-btn_img:hover {
+    opacity: .6;
+}
+
+@media (max-width: 767px) {
+    .popup__close-btn_img {
+        right: 0;
+        padding-bottom: 16px;
+    }
+}
