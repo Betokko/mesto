@@ -43,12 +43,13 @@
       <fieldset class="popup__dialog">
         <img class="popup__close-btn popup__close-btn_profile" src="./images/close-Icon.png" alt="кнопка закрыть">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input id="profile-text-name" type="text" name="name" class="popup__input popup__text-input popup__name"
-          value="" placeholder="Имя" required minlength="2" maxlength="40">
-        <span class="profile-text-name-error popup__error">111</span>
-        <input id="profile-text-descr" type="text" name="descr" class="popup__input popup__text-input popup__descr"
-          value="" placeholder="О себе" required minlength="2" maxlength="200">
-        <span class="popup__error profile-text-descr-error">111</span>
+        <input required id="profile-text-name" type="text" name="name"
+          class="popup__input popup__text-input popup__name" value="" placeholder="Имя" minlength="2" maxlength="40">
+        <span class="profile-text-name-error popup__error"></span>
+        <input required id="profile-text-descr" type="text" name="descr"
+          class="popup__input popup__text-input popup__descr" value="" placeholder="О себе" minlength="2"
+          maxlength="200">
+        <span class="popup__error profile-text-descr-error"></span>
         <button type="submit" name="submit" id="submit" class="popup__button">Сохранить</button>
       </fieldset>
     </form>
@@ -91,6 +92,7 @@
   </template>
   <script src="./script/index.js"></script>
   <script src="./script/validate.js"></script>
+
 </body>
 
 </html>

@@ -1,5 +1,4 @@
 // Global scope
-
 const initialCards = [
   {
     name: 'Девочка в желтом',
@@ -49,36 +48,54 @@ const openBtnImg = document.querySelector('.insert-card__img');
 const modalImgItem = document.querySelector('.popup__image');
 const modalImgText = document.querySelector('.popup__image-descr');
 
-renderCards();
-
-
-// Функции открытия и закрытия попапов
-
+// Функция открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_enabled');
+  document.addEventListener('keydown', closeOnEsc);
+  document.addEventListener('click', closeOnOverlay);
 } 
 
+// Функция закрытия попапов кликом на "крестик"
 function closePopup(popup) {
+  document.removeEventListener('keydown', closeOnEsc);
+  document.removeEventListener('click', closeOnOverlay);
   popup.classList.remove('popup_enabled');
 } 
 
+// Функция закрытия попапов на клавишу Esc
+function closeOnEsc(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_enabled'));
+  }
+}
 
-// Форма редактирования профиля
 
+// Функция закрытия попапов по клику на темный фон
+function closeOnOverlay(evt) {
+  let current = document.querySelector('.popup_enabled');
+    if (evt.target === current) {
+      closePopup(current)
+  }
+}
+
+
+// Слушатель открытия формы редактирования профиля
 openBtnProfile.addEventListener('click', () => {
   openPopup(formModalProfile)
   formName.value = profileName.textContent;
   formDescr.value = profileDescr.textContent;
-  enableValidation();
-  pressOnEscListener(formModalProfile);
-  clickOnOverlayListener(formModalProfile)
+  enableValidation(config);
+
 });
 
 
+// Слушатель закрытия формы редактирования профиля кликом на "крестик"
 closeBtnProfile.addEventListener('click', () => {
   closePopup(formModalProfile);
 })
 
+
+// Слушатель сабмита формы редактирования профиля
 formElementProfile.addEventListener('submit', (e) => {
   e.preventDefault();
   profileName.textContent = formName.value;
@@ -88,8 +105,7 @@ formElementProfile.addEventListener('submit', (e) => {
 
 
 
-// Отрисовка карточек из заданного массива
-
+// Функция отрисовки карточек из заданного массива
 function renderCards() {
   initialCards.forEach((elem) => {
     insertCardContainer.append(createCard(elem.name, elem.link))
@@ -97,22 +113,19 @@ function renderCards() {
 };
 
 
-// Форма добавления карточки
-
+// Слушатель открытия формы добавления карточки
 openBtnCard.addEventListener('click', () => {
   openPopup(formModalCard)
-  enableValidation();
-  pressOnEscListener(formModalCard);
-  clickOnOverlayListener(formModalCard);
+  enableValidation(config);
 });
 
+// Слушатель закрытия формы добавления карточки кликом на "крестик"
 closeBtnCard.addEventListener('click', () => {
   closePopup(formModalCard);
 })
 
 
 // функционал добавления и отрисовки новой карточки
-
 formElementCard.addEventListener('submit', (e) => {
   e.preventDefault();
   insertCardContainer.prepend(createCard(cardName.value, cardDescr.value))
@@ -138,10 +151,8 @@ function createCard(name, link) {
 // Слушатели событий
 // Лайки
 function likeCard(elem) {
-  elem.addEventListener('click', (e) => {
-    if (e.target === elem.querySelector('.insert-card__icon')) {
+  elem.querySelector('.insert-card__icon').addEventListener('click', (e) => {
       e.target.classList.toggle('insert-card__icon_active')
-    }
   })
 }
 
@@ -156,40 +167,18 @@ function removeCard(elem) {
 
 // Развертывание изображения карточки по клику на весь экран
 function renderModalImg(elem) {
-    elem.addEventListener('click', (e) => {
-      if (e.target === elem.querySelector('.insert-card__img')) {
+  elem.querySelector('.insert-card__img').addEventListener('click', (e) => {
         openPopup(modalImg)
-        modalImgItem.src = `${e.target.src}`;
-        modalImgItem.alt = `${e.target.alt}`;
-        modalImgText.textContent = `${e.target.alt}`;
-        pressOnEscListener(modalImg);
-        clickOnOverlayListener(modalImg);
-      }
+        modalImgItem.src = e.target.src;
+        modalImgItem.alt = e.target.alt;
+        modalImgText.textContent = e.target.alt;
     })
 }
 
+// Слушатель закрытия формы добавления карточки кликом на "крестик"
 closeBtnImg.addEventListener('click', () => {
   closePopup(modalImg);
 })
 
 
-// Закрытие попапов на Esc
-
-function pressOnEscListener(popup) {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  })
-}
-
-
-// Закрытие попапов по клику на черный фон
-
-function clickOnOverlayListener(popup) {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target === popup) {
-      closePopup(popup);
-    }
-  })
-}
+renderCards();
