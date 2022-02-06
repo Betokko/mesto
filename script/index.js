@@ -60,6 +60,11 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closeOnEsc);
   document.removeEventListener('click', closeOnOverlay);
   popup.classList.remove('popup_enabled');
+
+  // пофиксил этот момент - https://yadi.sk/d/Y7BxD1SvaO2byw
+  popup.querySelector('.popup__input').classList.remove('popup__input_type_error')
+  popup.querySelector('.popup__error').classList.remove('popup__error_visible');
+  popup.querySelector('.popup__error').textContent = '';
 } 
 
 // Функция закрытия попапов на клавишу Esc
