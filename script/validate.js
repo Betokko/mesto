@@ -5,6 +5,7 @@ const config = {
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible',
+  errorElement: '.popup__error',
 };
 
 const showError = (formElement, inputElement, errorMessage, data) => {
@@ -69,5 +70,14 @@ const enableValidation = (data) => {
       evt.preventDefault();
     })
     setEventListeners(formElement, data)
+  })
+}
+
+const clearInputs = (data, popup) => {
+  [...popup.querySelectorAll(data.inputSelector)].forEach((input) => {
+    input.classList.remove(data.inputErrorClass);
+  });
+  [...popup.querySelectorAll(data.errorElement)].forEach((input) => {
+    input.classList.remove(data.errorClass);
   })
 }

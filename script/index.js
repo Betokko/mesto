@@ -62,13 +62,7 @@ function closePopup(popup) {
   popup.classList.remove('popup_enabled');
   popup.querySelector('.popup__form').reset();
 
-  // пофиксил этот момент - https://yadi.sk/d/Y7BxD1SvaO2byw
-  [...popup.querySelectorAll('.popup__input')].forEach((input) => {
-    input.classList.remove('popup__input_type_error');
-  });
-  [...popup.querySelectorAll('.popup__error')].forEach((input) => {
-    input.classList.remove('popup__error_visible');
-  })
+  clearInputs(config, popup);
 } 
 
 // Функция закрытия попапов на клавишу Esc
@@ -81,7 +75,7 @@ function closeOnEsc(evt) {
 
 // Функция закрытия попапов по клику на темный фон
 function closeOnOverlay(evt) {
-  let current = document.querySelector('.popup_enabled');
+  const current = document.querySelector('.popup_enabled');
     if (evt.target === current) {
       closePopup(current)
   }
