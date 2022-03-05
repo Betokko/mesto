@@ -1,3 +1,6 @@
+import FormValidator from "./FormValidator.js"
+import Card from  "./Card.js"
+
 // Global scope
 const initialCards = [
   {
