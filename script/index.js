@@ -76,9 +76,6 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closeOnEsc);
   document.removeEventListener('click', closeOnOverlay);
   popup.classList.remove('popup_enabled');
-  
-
-  // clearInputs(config, popup);
 } 
 
 // Функция закрытия попапов на клавишу Esc
