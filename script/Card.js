@@ -1,6 +1,5 @@
 import {openPopup, modalImg} from "./index.js"
-
-class Card{
+export default class Card{
     constructor(name, link, templateSelector) {
         this._name = name;
         this._link = link;
@@ -41,12 +40,10 @@ class Card{
           }
     }
     _renderModalImg(evt) {
-        const modalImgItem = document.querySelector('.popup__image');
-        const modalImgText = document.querySelector('.popup__image-descr');
-        modalImgItem.src = evt.target.src;
-        modalImgItem.alt = evt.target.alt;
-        modalImgText.textContent = evt.target.alt;
-        openPopup(modalImg)
+        if (evt.target.classList.contains('insert-card__img') ){
+            document.querySelector('.popup__image').src = evt.target.src;
+            document.querySelector('.popup__image-descr').textContent = evt.target.alt;
+            openPopup(modalImg)
+        }
     }
 };
-export default Card;

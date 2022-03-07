@@ -1,5 +1,7 @@
-import FormValidator from "./FormValidator.js"
-import Card from  "./Card.js"
+import {FormValidator, config} from "./FormValidator.js";
+import Card from  "./Card.js";
+export {openPopup, modalImg};
+
 
 // Global scope
 const initialCards = [
@@ -44,11 +46,11 @@ const cardName = document.querySelector('.popup__card-name');
 const cardDescr = document.querySelector('.popup__card-descr');
 const insertCardContainer = document.querySelector('.insert-card');
 const modalImg = document.querySelector('.popup_img');
-
 const insertCardTemplate = document.querySelector('#insert-card').content;
 const insertCardElement = insertCardTemplate.querySelector('.insert-card__item');
 const closeBtnImg = document.querySelector('.popup__close-btn_img');
 const openBtnImg = document.querySelector('.insert-card__img');
+
 
 
 // Функция открытия попапов
@@ -67,7 +69,7 @@ function closePopup(popup) {
     popup.querySelector('.popup__form').reset();
   }
 
-  clearInputs(config, popup);
+  // clearInputs(config, popup);
 } 
 
 // Функция закрытия попапов на клавишу Esc
@@ -92,7 +94,8 @@ openBtnProfile.addEventListener('click', () => {
   openPopup(formModalProfile)
   formName.value = profileName.textContent;
   formDescr.value = profileDescr.textContent;
-  enableValidation(config);
+  const validator = new FormValidator(config, formModalProfile);
+  validator.enableValidation();
 
 });
 
@@ -127,7 +130,8 @@ function renderCards() {
 // Слушатель открытия формы добавления карточки
 openBtnCard.addEventListener('click', () => {
   openPopup(formModalCard)
-  enableValidation(config);
+  const validator = new FormValidator(config, formModalCard);
+  validator.enableValidation();
 });
 
 // Слушатель закрытия формы добавления карточки кликом на "крестик"
@@ -153,4 +157,12 @@ closeBtnImg.addEventListener('click', () => {
 })
 
 renderCards();
-export {openPopup, modalImg};
+
+// const clearInputs = (data, popup) => {
+//   [...popup.querySelectorAll(data.inputSelector)].forEach((input) => {
+//     input.classList.remove(data.inputErrorClass);
+//   });
+//   [...popup.querySelectorAll(data.errorElement)].forEach((input) => {
+//     input.classList.remove(data.errorClass);
+//   })
+// }
