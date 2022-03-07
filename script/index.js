@@ -43,16 +43,16 @@ const closeBtnCard = document.querySelector('.popup__close-btn_card');
 const cardName = document.querySelector('.popup__card-name');
 const cardDescr = document.querySelector('.popup__card-descr');
 const insertCardContainer = document.querySelector('.insert-card');
+const modalImg = document.querySelector('.popup_img');
+
 const insertCardTemplate = document.querySelector('#insert-card').content;
 const insertCardElement = insertCardTemplate.querySelector('.insert-card__item');
-const modalImg = document.querySelector('.popup_img');
 const closeBtnImg = document.querySelector('.popup__close-btn_img');
 const openBtnImg = document.querySelector('.insert-card__img');
-const modalImgItem = document.querySelector('.popup__image');
-const modalImgText = document.querySelector('.popup__image-descr');
+
 
 // Функция открытия попапов
-function openPopup(popup) {
+const openPopup = function(popup) {
   popup.classList.add('popup_enabled');
   document.addEventListener('keydown', closeOnEsc);
   document.addEventListener('click', closeOnOverlay);
@@ -63,7 +63,9 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closeOnEsc);
   document.removeEventListener('click', closeOnOverlay);
   popup.classList.remove('popup_enabled');
-  popup.querySelector('.popup__form').reset();
+  if (popup.classList.contains('.popup__form')) {
+    popup.querySelector('.popup__form').reset();
+  }
 
   clearInputs(config, popup);
 } 
@@ -114,9 +116,12 @@ formElementProfile.addEventListener('submit', (e) => {
 // Функция отрисовки карточек из заданного массива
 function renderCards() {
   initialCards.forEach((elem) => {
-    insertCardContainer.append(createCard(elem.name, elem.link))
+    const card = new Card(elem.name, elem.link, '#insert-card')
+    const cardElement = card.renderCard();
+    insertCardContainer.append(cardElement);
   })
 };
+
 
 
 // Слушатель открытия формы добавления карточки
@@ -132,59 +137,20 @@ closeBtnCard.addEventListener('click', () => {
 
 
 // функционал добавления и отрисовки новой карточки
-formElementCard.addEventListener('submit', (e) => {
-  e.preventDefault();
-  insertCardContainer.prepend(createCard(cardName.value, cardDescr.value))
-  e.target.reset();
+formElementCard.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const card = new Card(cardName.value, cardDescr.value, '#insert-card')
+  const cardElement = card.renderCard();
+  insertCardContainer.prepend(cardElement)
+  evt.target.reset();
   closePopup(formModalCard);
 })
 
-function createCard(name, link) {
-  const newCard = insertCardElement.cloneNode(true);
-  const cardPicture = newCard.querySelector('.insert-card__img');
-  const cardDescr = newCard.querySelector('.insert-card__title');
-  cardPicture.src = link;
-  cardPicture.alt = name;
-  cardDescr.textContent = name;
-
-  likeCard(newCard);
-  removeCard(newCard);
-  renderModalImg(newCard)
-  return newCard;
-}
-
-
-// Слушатели событий
-// Лайки
-function likeCard(elem) {
-  elem.querySelector('.insert-card__icon').addEventListener('click', (e) => {
-      e.target.classList.toggle('insert-card__icon_active')
-  })
-}
-
-// Козина
-function removeCard(elem) {
-  elem.addEventListener('click', (e) => {
-    if (e.target === elem.querySelector('.insert-card__remove')) {
-      e.target.closest('.insert-card__item').remove();
-    }
-  })
-}
-
-// Развертывание изображения карточки по клику на весь экран
-function renderModalImg(elem) {
-  elem.querySelector('.insert-card__img').addEventListener('click', (e) => {
-        openPopup(modalImg)
-        modalImgItem.src = e.target.src;
-        modalImgItem.alt = e.target.alt;
-        modalImgText.textContent = e.target.alt;
-    })
-}
 
 // Слушатель закрытия формы добавления карточки кликом на "крестик"
 closeBtnImg.addEventListener('click', () => {
   closePopup(modalImg);
 })
 
-
 renderCards();
+export {openPopup, modalImg};
