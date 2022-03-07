@@ -1,9 +1,18 @@
-import {FormValidator, config} from "./FormValidator.js";
+import FormValidator from "./FormValidator.js";
 import Card from  "./Card.js";
 export {openPopup, modalImg};
 
 
 // Global scope
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+  errorElement: '.popup__error',
+};
 const initialCards = [
   {
     name: 'Девочка в желтом',
@@ -48,16 +57,18 @@ const insertCardContainer = document.querySelector('.insert-card');
 const modalImg = document.querySelector('.popup_img');
 const insertCardTemplate = document.querySelector('#insert-card').content;
 const insertCardElement = insertCardTemplate.querySelector('.insert-card__item');
-const closeBtnImg = document.querySelector('.popup__close-btn_img');
 const openBtnImg = document.querySelector('.insert-card__img');
+const closeBtnImg = document.querySelector('.popup__close-btn_img');
 
+const formValidator = new FormValidator(config, formModalProfile);
+const cardValidator = new FormValidator(config, formModalCard);
 
 
 // Функция открытия попапов
 const openPopup = function(popup) {
   popup.classList.add('popup_enabled');
   document.addEventListener('keydown', closeOnEsc);
-  document.addEventListener('click', closeOnOverlay);
+  popup.addEventListener('click', closeOnOverlay);
 } 
 
 // Функция закрытия попапов кликом на "крестик"
@@ -65,9 +76,7 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closeOnEsc);
   document.removeEventListener('click', closeOnOverlay);
   popup.classList.remove('popup_enabled');
-  if (popup.classList.contains('.popup__form')) {
-    popup.querySelector('.popup__form').reset();
-  }
+  
 
   // clearInputs(config, popup);
 } 
@@ -94,8 +103,7 @@ openBtnProfile.addEventListener('click', () => {
   openPopup(formModalProfile)
   formName.value = profileName.textContent;
   formDescr.value = profileDescr.textContent;
-  const validator = new FormValidator(config, formModalProfile);
-  validator.enableValidation();
+  formValidator.enableValidation();
 
 });
 
@@ -107,31 +115,35 @@ closeBtnProfile.addEventListener('click', () => {
 
 
 // Слушатель сабмита формы редактирования профиля
-formElementProfile.addEventListener('submit', (e) => {
-  e.preventDefault();
+formElementProfile.addEventListener('submit', (evt) => {
+  evt.preventDefault();
   profileName.textContent = formName.value;
   profileDescr.textContent = formDescr.value;
+  evt.target.reset();
   closePopup(formModalProfile);
 });
 
+
+// Функция инициализации создания экземпляра класса карточки
+function createCardElement(name, link, templateSelector) {
+  const card = new Card(name, link, templateSelector)
+  const cardElement = card.renderCard();
+  return cardElement
+}
 
 
 // Функция отрисовки карточек из заданного массива
 function renderCards() {
   initialCards.forEach((elem) => {
-    const card = new Card(elem.name, elem.link, '#insert-card')
-    const cardElement = card.renderCard();
-    insertCardContainer.append(cardElement);
+    insertCardContainer.append(createCardElement(elem.name, elem.link, '#insert-card'));
   })
 };
-
 
 
 // Слушатель открытия формы добавления карточки
 openBtnCard.addEventListener('click', () => {
   openPopup(formModalCard)
-  const validator = new FormValidator(config, formModalCard);
-  validator.enableValidation();
+  cardValidator.enableValidation();
 });
 
 // Слушатель закрытия формы добавления карточки кликом на "крестик"
@@ -143,9 +155,7 @@ closeBtnCard.addEventListener('click', () => {
 // функционал добавления и отрисовки новой карточки
 formElementCard.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const card = new Card(cardName.value, cardDescr.value, '#insert-card')
-  const cardElement = card.renderCard();
-  insertCardContainer.prepend(cardElement)
+  insertCardContainer.prepend(createCardElement(cardName.value, cardDescr.value, '#insert-card'))
   evt.target.reset();
   closePopup(formModalCard);
 })
@@ -157,12 +167,3 @@ closeBtnImg.addEventListener('click', () => {
 })
 
 renderCards();
-
-// const clearInputs = (data, popup) => {
-//   [...popup.querySelectorAll(data.inputSelector)].forEach((input) => {
-//     input.classList.remove(data.inputErrorClass);
-//   });
-//   [...popup.querySelectorAll(data.errorElement)].forEach((input) => {
-//     input.classList.remove(data.errorClass);
-//   })
-// }

@@ -23,15 +23,15 @@ export default class Card{
         return this._element;
     }
     _setEventListener() {
-        this._element.addEventListener('click', this._handlerLikeButton)
+        this._element.querySelector('.insert-card__icon').addEventListener('click', this._handlerLikeButton)
         this._element.addEventListener('click', this._removeCard)
-        this._element.addEventListener('click', this._renderModalImg)
+        this._element.addEventListener('click', (evt) => {
+            this._renderModalImg(evt)
+        } )
     }
 
     _handlerLikeButton(evt) {
-        if (evt.target.classList.contains('insert-card__icon')) {
-            evt.target.classList.toggle('insert-card__icon_active');
-          }
+        evt.target.classList.toggle('insert-card__icon_active')
     }
 
     _removeCard(evt) {
@@ -41,8 +41,9 @@ export default class Card{
     }
     _renderModalImg(evt) {
         if (evt.target.classList.contains('insert-card__img') ){
-            document.querySelector('.popup__image').src = evt.target.src;
-            document.querySelector('.popup__image-descr').textContent = evt.target.alt;
+            document.querySelector('.popup__image').src = this._link;
+            document.querySelector('.popup__image').alt = this._name;
+            document.querySelector('.popup__image-descr').textContent = this._name;
             openPopup(modalImg)
         }
     }
