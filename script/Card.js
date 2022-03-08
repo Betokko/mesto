@@ -4,7 +4,6 @@ export default class Card{
         this._name = name;
         this._link = link;
         this._templateSelector = templateSelector;
-
     }
     _getTemplate () {
         const cardElement = document
@@ -24,7 +23,7 @@ export default class Card{
     }
     _setEventListener() {
         this._element.querySelector('.insert-card__icon').addEventListener('click', this._handlerLikeButton)
-        this._element.addEventListener('click', this._removeCard)
+        this._element.querySelector('.insert-card__remove').addEventListener('click', this._removeCard)
         this._element.addEventListener('click', (evt) => {
             this._renderModalImg(evt)
         } )
@@ -35,9 +34,7 @@ export default class Card{
     }
 
     _removeCard(evt) {
-        if (evt.target.classList.contains('insert-card__remove')) {
-            evt.target.closest('.insert-card__item').remove();
-          }
+        evt.target.closest('.insert-card__item').remove();
     }
     _renderModalImg(evt) {
         if (evt.target.classList.contains('insert-card__img') ){

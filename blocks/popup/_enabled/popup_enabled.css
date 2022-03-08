@@ -1,5 +1,5 @@
 .popup_enabled {
     visibility: visible;
     opacity: 1;
-    transition: visibility 0s, opacity 0.4s linear;
+    transition: visibility 0s, opacity 0.2s linear;
 }
