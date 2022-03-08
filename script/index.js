@@ -15,28 +15,28 @@ const config = {
 };
 const initialCards = [
   {
-    name: 'Девочка в желтом',
-    link: 'https://images.unsplash.com/photo-1568196004494-b1ee34f3b436?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
+    name: 'Jotaro',
+    link: './images/jojo/jotaro.webp'
   },
   {
-    name: 'Девочка',
-    link: 'https://images.unsplash.com/photo-1511130558090-00af810c21b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=689&q=80'
+    name: 'Joseph',
+    link: './images/jojo/joseph.png'
   },
   {
-    name: 'Девочка',
-    link: 'https://images.unsplash.com/photo-1571137804941-5eafd456873b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
+    name: 'Dio',
+    link: './images/jojo/dio.png'
   },
   {
-    name: 'Девочка',
-    link: 'https://images.unsplash.com/photo-1482555670981-4de159d8553b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
+    name: 'Avdol',
+    link: './images/jojo/avdol.png'
   },
   {
-    name: 'Девочка',
-    link: 'https://images.unsplash.com/photo-1441123100240-f9f3f77ed41b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
+    name: 'Kakyoin',
+    link: './images/jojo/kakyoin.png'
   },
   {
-    name: 'Девочка',
-    link: 'https://images.unsplash.com/photo-1548626008-5bdca8c9552a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80'
+    name: 'Polnareff',
+    link: './images/jojo/polnareff.png'
   }
 ]; 
 const formModalProfile = document.querySelector('.popup_profile');
