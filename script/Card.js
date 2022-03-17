@@ -1,9 +1,9 @@
-import {openPopup, modalImg} from "./index.js"
 export default class Card{
-    constructor(name, link, templateSelector) {
+    constructor(name, link, templateSelector, { handleCardClick }) {
         this._name = name;
         this._link = link;
         this._templateSelector = templateSelector;
+        this._handleCardClick = handleCardClick;
     }
     _getTemplate () {
         const cardElement = document
@@ -25,7 +25,7 @@ export default class Card{
         this._element.querySelector('.insert-card__icon').addEventListener('click', this._handlerLikeButton)
         this._element.querySelector('.insert-card__remove').addEventListener('click', this._removeCard)
         this._element.querySelector('.insert-card__img').addEventListener('click', () => {
-            this._renderModalImg()
+            this._handleCardClick();
         } )
     }
 
@@ -37,10 +37,4 @@ export default class Card{
         evt.target.closest('.insert-card__item').remove();
     }
     
-    _renderModalImg() {
-            document.querySelector('.popup__image').src = this._link;
-            document.querySelector('.popup__image').alt = this._name;
-            document.querySelector('.popup__image-descr').textContent = this._name;
-            openPopup(modalImg)
-    }
 };
