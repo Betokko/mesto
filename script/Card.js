@@ -1,4 +1,4 @@
-import {openPopup, modalImg} from "./index.js"
+// import {openPopup, modalImg} from "./index.js"
 export default class Card{
     constructor(name, link, templateSelector) {
         this._name = name;
@@ -41,6 +41,6 @@ export default class Card{
             document.querySelector('.popup__image').src = this._link;
             document.querySelector('.popup__image').alt = this._name;
             document.querySelector('.popup__image-descr').textContent = this._name;
-            openPopup(modalImg)
+            // openPopup(modalImg)
     }
 };
