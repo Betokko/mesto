@@ -1,8 +1,7 @@
-import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-import PopupWithImage from "./PopupWithImage.js";
-import Section from "./Section.js";
-// export {openPopup, modalImg};
+import Card from  "./Card.js";
+export {openPopup, modalImg};
+
 
 // Global scope
 const config = {
@@ -65,6 +64,37 @@ const formValidator = new FormValidator(config, formModalProfile);
 const cardValidator = new FormValidator(config, formModalCard);
 
 
+// Функция открытия попапов
+const openPopup = function(popup) {
+  popup.classList.add('popup_enabled');
+  document.addEventListener('keydown', closeOnEsc);
+  popup.addEventListener('click', closeOnOverlay);
+} 
+
+// Функция закрытия попапов кликом на "крестик"
+function closePopup(popup) {
+  document.removeEventListener('keydown', closeOnEsc);
+  document.removeEventListener('click', closeOnOverlay);
+  popup.classList.remove('popup_enabled');
+} 
+
+// Функция закрытия попапов на клавишу Esc
+function closeOnEsc(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_enabled'));
+  }
+}
+
+
+// Функция закрытия попапов по клику на темный фон
+function closeOnOverlay(evt) {
+  const current = document.querySelector('.popup_enabled');
+    if (evt.target === current) {
+      closePopup(current)
+  }
+}
+
+
 // Слушатель открытия формы редактирования профиля
 openBtnProfile.addEventListener('click', () => {
   openPopup(formModalProfile)
@@ -73,6 +103,13 @@ openBtnProfile.addEventListener('click', () => {
   formValidator.enableValidation();
 
 });
+
+
+// Слушатель закрытия формы редактирования профиля кликом на "крестик"
+closeBtnProfile.addEventListener('click', () => {
+  closePopup(formModalProfile);
+})
+
 
 // Слушатель сабмита формы редактирования профиля
 formElementProfile.addEventListener('submit', (evt) => {
@@ -84,20 +121,20 @@ formElementProfile.addEventListener('submit', (evt) => {
 });
 
 
-// Отрисовка массива карточек
-const cards = new Section({
-  items: initialCards,
-  renderer: (cardItem) => {
-    const card = new Card(cardItem.name, cardItem.link, '#insert-card', { handleCardClick: () => {
-      const popup = new PopupWithImage(cardItem.name, cardItem.link, modalImg);
-      popup.open();
-    } });
-    const cardElement = card.renderCard();
-    cards.addItems(cardElement);
-  }
-}, insertCardContainer)
+// Функция инициализации создания экземпляра класса карточки
+function createCardElement(name, link, templateSelector) {
+  const card = new Card(name, link, templateSelector)
+  const cardElement = card.renderCard();
+  return cardElement
+}
 
-cards.renderItems();
+
+// Функция отрисовки карточек из заданного массива
+function renderCards() {
+  initialCards.forEach((elem) => {
+    insertCardContainer.append(createCardElement(elem.name, elem.link, '#insert-card'));
+  })
+};
 
 
 // Слушатель открытия формы добавления карточки
@@ -105,6 +142,11 @@ openBtnCard.addEventListener('click', () => {
   openPopup(formModalCard)
   cardValidator.enableValidation();
 });
+
+// Слушатель закрытия формы добавления карточки кликом на "крестик"
+closeBtnCard.addEventListener('click', () => {
+  closePopup(formModalCard);
+})
 
 
 // функционал добавления и отрисовки новой карточки
@@ -114,3 +156,11 @@ formElementCard.addEventListener('submit', (evt) => {
   evt.target.reset();
   closePopup(formModalCard);
 })
+
+
+// Слушатель закрытия формы добавления карточки кликом на "крестик"
+closeBtnImg.addEventListener('click', () => {
+  closePopup(modalImg);
+})
+
+renderCards();
