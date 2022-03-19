@@ -1,9 +1,9 @@
-// import {openPopup, modalImg} from "./index.js"
 export default class Card{
-    constructor(name, link, templateSelector) {
+    constructor(name, link, templateSelector, {handleCardClick}) {
         this._name = name;
         this._link = link;
         this._templateSelector = templateSelector;
+        this._handleCardClick = handleCardClick;
     }
     _getTemplate () {
         const cardElement = document
@@ -41,6 +41,6 @@ export default class Card{
             document.querySelector('.popup__image').src = this._link;
             document.querySelector('.popup__image').alt = this._name;
             document.querySelector('.popup__image-descr').textContent = this._name;
-            // openPopup(modalImg)
+            this._handleCardClick();
     }
 };

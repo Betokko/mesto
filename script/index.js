@@ -1,15 +1,9 @@
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import Section from "./Section.js";
-import Popup from "./Popup.js";
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm.js";
 import UserInfo from "./UserInfo.js";
-// export {
-//   openPopup,
-//   modalImg
-// };
-
 
 // Global scope
 const config = {
@@ -48,7 +42,7 @@ const initialCards = [{
 ];
 const formModalProfile = document.querySelector('.popup_profile');
 const formElementProfile = document.querySelector('.popup__body_profile');
-const openBtnProfile = document.querySelector('.profile__edit-button');
+const editProfileBurron = document.querySelector('.profile__edit-button');
 const closeBtnProfile = document.querySelector('.popup__close-btn_profile');
 const profileName = document.querySelector('.profile__name')
 const profileDescr = document.querySelector('.profile__description')
@@ -56,7 +50,7 @@ const formName = document.querySelector('.popup__name')
 const formDescr = document.querySelector('.popup__descr')
 const formModalCard = document.querySelector('.popup_card');
 const formElementCard = document.querySelector('.popup__body_card');
-const openBtnCard = document.querySelector('.profile__add-button');
+const addCardButton = document.querySelector('.profile__add-button');
 const closeBtnCard = document.querySelector('.popup__close-btn_card');
 const cardName = document.querySelector('.popup__card-name');
 const cardDescr = document.querySelector('.popup__card-descr');
@@ -69,110 +63,57 @@ const closeBtnImg = document.querySelector('.popup__close-btn_img');
 
 const formValidator = new FormValidator(config, formModalProfile);
 const cardValidator = new FormValidator(config, formModalCard);
+const cardImagePopup = new PopupWithImage(modalImg);
+const userInfo = new UserInfo({name: profileName, desc: profileDescr});
 
-// Отрисовка карточек
-const cards = new Section({
-  items: initialCards,
-  renderer: (cardItem) => {
-    const card = new Card(cardItem.name, cardItem.link, '#insert-card')
-    const cardElement = card.renderCard();
-    cards.addItem(cardElement)
-  },
-}, insertCardContainer);
-cards.renderItems();
-
-// Добавление и отрисовки новой карточки
-formElementCard.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  const card = new Card(cardName.value, cardDescr.value, '#insert-card')
-  const cardElement = card.renderCard();
-  insertCardContainer.prepend(cardElement)
-  evt.target.reset();
-  closePopup(formModalCard);
-})
-
-
-// // Функция открытия попапов
-// const openPopup = function (popup) {
-//   popup.classList.add('popup_enabled');
-//   document.addEventListener('keydown', closeOnEsc);
-//   popup.addEventListener('click', closeOnOverlay);
-// }
-// // Слушатель открытия формы редактирования профиля
-// openBtnProfile.addEventListener('click', () => {
-//   openPopup(formModalProfile)
-//   formName.value = profileName.textContent;
-//   formDescr.value = profileDescr.textContent;
-//   formValidator.enableValidation();
-
-// });
-// // Слушатель открытия формы добавления карточки
-// openBtnCard.addEventListener('click', () => {
-//   openPopup(formModalCard)
-//   cardValidator.enableValidation();
-// });
-
-// Функция закрытия попапов кликом на "крестик"
-function closePopup(popup) {
-  document.removeEventListener('keydown', closeOnEsc);
-  document.removeEventListener('click', closeOnOverlay);
-  popup.classList.remove('popup_enabled');
+// Отрисовка массива карточек
+function renderCardsArray() {
+  const cards = new Section({
+    items: initialCards,
+    renderer: (cardItem) => {
+      const card = new Card(cardItem.name, cardItem.link, '#insert-card', {
+        handleCardClick: () => {
+          cardImagePopup.open();
+        }
+      })
+      const cardElement = card.renderCard();
+      cards.addItem(cardElement)
+    },
+  }, insertCardContainer);
+  cards.renderItems();
 }
+renderCardsArray();
 
-// Функция закрытия попапов на клавишу Esc
-function closeOnEsc(evt) {
-  if (evt.key === 'Escape') {
-    closePopup(document.querySelector('.popup_enabled'));
-  }
+// Попап формы длбавления новой карточки
+addCardButton.addEventListener('click', renderCard)
+
+function renderCard() {
+  const cardInputPopup = new PopupWithForm(formModalCard, {
+    handleFormSubmit: (formData) => {
+      const card = new Card(formData.name, formData.descr, '#insert-card', {
+        handleCardClick: () => {
+          cardImagePopup.open();
+        }
+      })
+      const cardElement = card.renderCard();
+      insertCardContainer.prepend(cardElement)
+    }
+  });
+  cardInputPopup.open()
+  cardValidator.enableValidation();
+};
+
+// Попап формы редактирования информации
+editProfileBurron.addEventListener('click', editProdileData)
+
+function editProdileData() {
+  const profileInputPopup = new PopupWithForm(formModalProfile, {
+    handleFormSubmit: (formData) => {
+      userInfo.setUserInfo(formData.name, formData.descr)
+    }
+  })
+  formName.value = userInfo.getUserInfo().name
+  formDescr.value = userInfo.getUserInfo().desc;
+  profileInputPopup.open()
+  formValidator.enableValidation();
 }
-
-// Функция закрытия попапов по клику на темный фон
-function closeOnOverlay(evt) {
-  const current = document.querySelector('.popup_enabled');
-  if (evt.target === current) {
-    closePopup(current)
-  }
-}
-
-
-// Слушатель закрытия формы редактирования профиля кликом на "крестик"
-closeBtnProfile.addEventListener('click', () => {
-  closePopup(formModalProfile);
-})
-
-
-// Слушатель сабмита формы редактирования профиля
-formElementProfile.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  profileName.textContent = formName.value;
-  profileDescr.textContent = formDescr.value;
-  evt.target.reset();
-  closePopup(formModalProfile);
-});
-
-// Слушатель закрытия формы добавления карточки кликом на "крестик"
-closeBtnCard.addEventListener('click', () => {
-  closePopup(formModalCard);
-})
-
-
-// Слушатель закрытия формы добавления карточки кликом на "крестик"
-closeBtnImg.addEventListener('click', () => {
-  closePopup(modalImg);
-})
-
-// // Функция инициализации создания экземпляра класса карточки
-// function createCardElement(name, link, templateSelector) {
-//   const card = new Card(name, link, templateSelector)
-//   const cardElement = card.renderCard();
-//   return cardElement
-// }
-
-
-// // Функция отрисовки карточек из заданного массива
-// function renderCards() {
-//   initialCards.forEach((elem) => {
-//     insertCardContainer.append(createCardElement(elem.name, elem.link, '#insert-card'));
-//   })
-// };
-// renderCards();
