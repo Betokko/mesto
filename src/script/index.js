@@ -6,7 +6,6 @@ import PopupWithForm from "./PopupWithForm.js";
 import UserInfo from "./UserInfo.js";
 import {
   config,
-  initialCards,
   formModalProfile,
   editProfileButton,
   formName,
@@ -16,8 +15,49 @@ import {
   insertCardContainer,
   modalImg,
 } from './constatns.js'
+import '../pages/index.css'
 
 // Global scope
+const jotaro = new URL('../images/jojo/jotaro.webp',
+  import.meta.url);
+const joseph = new URL('../images/jojo/joseph.png',
+  import.meta.url);
+const dio = new URL('../images/jojo/dio.png',
+  import.meta.url);
+const avdol = new URL('../images/jojo/avdol.png',
+  import.meta.url);
+const kakyoin = new URL('../images/jojo/kakyoin.png',
+  import.meta.url);
+const polnareff = new URL('../images/jojo/polnareff.png',
+  import.meta.url);
+
+const initialCards = [{
+    name: 'Jotaro',
+    link: jotaro
+  },
+  {
+    name: 'Joseph',
+    link: joseph
+  },
+  {
+    name: 'Dio',
+    link: dio
+  },
+  {
+    name: 'Avdol',
+    link: avdol
+  },
+  {
+    name: 'Kakyoin',
+    link: kakyoin
+  },
+  {
+    name: 'Polnareff',
+    link: polnareff
+  }
+];
+
+
 const formValidator = new FormValidator(config, formModalProfile);
 const cardValidator = new FormValidator(config, formModalCard);
 const cardImagePopup = new PopupWithImage(modalImg);
