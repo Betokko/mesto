@@ -1,3 +1,4 @@
+import '../pages/index.css';
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import Section from "./Section.js";
@@ -15,29 +16,36 @@ const config = {
   errorClass: 'popup__error_visible',
   errorElement: '.popup__error',
 };
+const jotaro = new URL('../images/jojo/jotaro.webp', import.meta.url);
+const joseph = new URL('../images/jojo/joseph.png', import.meta.url);
+const dio = new URL('../images/jojo/dio.png', import.meta.url);
+const avdol = new URL('../images/jojo/avdol.png', import.meta.url);
+const kakyoin = new URL('../images/jojo/kakyoin.png', import.meta.url);
+const polnareff = new URL('../images/jojo/polnareff.png', import.meta.url);
+
 const initialCards = [{
     name: 'Jotaro',
-    link: './images/jojo/jotaro.webp'
+    link: jotaro
   },
   {
     name: 'Joseph',
-    link: './images/jojo/joseph.png'
+    link: joseph
   },
   {
     name: 'Dio',
-    link: './images/jojo/dio.png'
+    link: dio
   },
   {
     name: 'Avdol',
-    link: './images/jojo/avdol.png'
+    link: avdol
   },
   {
     name: 'Kakyoin',
-    link: './images/jojo/kakyoin.png'
+    link: kakyoin
   },
   {
     name: 'Polnareff',
-    link: './images/jojo/polnareff.png'
+    link: polnareff
   }
 ];
 const formModalProfile = document.querySelector('.popup_profile');
