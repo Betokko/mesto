@@ -61,6 +61,7 @@ const initialCards = [{
 const formValidator = new FormValidator(config, formModalProfile);
 const cardValidator = new FormValidator(config, formModalCard);
 const cardImagePopup = new PopupWithImage(modalImg);
+cardImagePopup.setEventListeners()
 const userInfo = new UserInfo({
   name: '.profile__name',
   desc: '.profile__description'
@@ -72,10 +73,10 @@ function getCard(name, link) {
   const card = new Card(name, link, '#insert-card', {
     handleCardClick: () => {
       cardImagePopup.open(name, link);
-      cardImagePopup.setEventListeners()
     }
   })
-  return card
+  const cardElement = card.renderCard();
+  return cardElement
 }
 
 // Отрисовка массива карточек
@@ -84,8 +85,7 @@ function renderCardsArray() {
     items: initialCards,
     renderer: (cardItem) => {
       const card = getCard(cardItem.name, cardItem.link)
-      const cardElement = card.renderCard();
-      cards.addItem(cardElement)
+      cards.addItem(card)
     },
   }, insertCardContainer);
   cards.renderItems();
@@ -93,39 +93,35 @@ function renderCardsArray() {
 renderCardsArray();
 
 // Попап формы длбавления новой карточки
-addCardButton.addEventListener('click', renderCard)
+addCardButton.addEventListener('click', () => {
+  cardInputPopup.open();
+})
 
 const cardInputPopup = new PopupWithForm(formModalCard, {
   handleFormSubmit: (formData) => {
     const card = getCard(formData.name, formData.descr)
-    const cardElement = card.renderCard();
-    insertCardContainer.prepend(cardElement)
+    insertCardContainer.prepend(card)
   }
 });
 cardInputPopup.setEventListeners();
 cardValidator.enableValidation();
 
-function renderCard() {
-  cardInputPopup.open();
-};
 
 
 // Попап формы редактирования информации
-editProfileButton.addEventListener('click', editProdileData)
+editProfileButton.addEventListener('click', () => {
+  formName.value = userData.name;
+  formDescr.value = userData.desc;
+  profileInputPopup.open();
+})
 
 const profileInputPopup = new PopupWithForm(formModalProfile, {
   handleFormSubmit: (formData) => {
     userInfo.setUserInfo(formData.name, formData.descr);
   }
 })
-profileInputPopup.setEventListeners()
 
 const userData = userInfo.getUserInfo();
 
-function editProdileData() {
-  formName.value = userData.name;
-  formDescr.value = userData.desc;
-  profileInputPopup.open();
-}
-
+profileInputPopup.setEventListeners()
 formValidator.enableValidation();
