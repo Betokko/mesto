@@ -18,7 +18,7 @@
       <div class="profile__info">
         <div class="profile__title">
           <h1 class="profile__name">JoJo's Bizarre Adventure</h1>
-          <img src="<%=require('./images/edit-btn.svg')%>"  alt="иконка редактировать" class="profile__edit-button">
+          <img src="<%=require('./images/edit-btn.svg')%>" alt="иконка редактировать" class="profile__edit-button">
         </div>
         <p class="profile__description">Невероятные приключения ДжоДжо</p>
       </div>
@@ -40,7 +40,8 @@
   <div class="popup popup_profile">
     <form class="popup__form popup__body popup__body_profile" novalidate>
       <fieldset class="popup__dialog">
-        <img class="popup__close-btn popup__close-btn_profile" src="<%=require('./images/close-Icon.png')%>" alt="кнопка закрыть">
+        <img class="popup__close-btn popup__close-btn_profile" src="<%=require('./images/close-Icon.png')%>"
+          alt="кнопка закрыть">
         <h2 class="popup__title">Редактировать профиль</h2>
         <input required id="profile-text-name" type="text" name="name"
           class="popup__input popup__text-input popup__name" value="" placeholder="Имя" minlength="2" maxlength="40">
@@ -57,7 +58,8 @@
   <div class="popup popup_card">
     <form class="popup__form popup__body popup__body_card" novalidate>
       <fieldset class="popup__dialog">
-        <img class="popup__close-btn popup__close-btn_card" src="<%=require('./images/close-Icon.png')%>" alt="кнопка закрыть">
+        <img class="popup__close-btn popup__close-btn_card" src="<%=require('./images/close-Icon.png')%>"
+          alt="кнопка закрыть">
         <h2 class="popup__title">Добавить</h2>
         <input id="card-text-name" type="text" name="name"
           class="popup__input popup__text-input popup__name popup__card-name" value="" placeholder="Название" required
@@ -74,18 +76,33 @@
 
   <div class="popup popup_img">
     <div class="popup__image-container">
-      <img class="popup__close-btn popup__close-btn_img" src="<%=require('./images/close-Icon.png')%>" alt="кнопка закрыть">
+      <img class="popup__close-btn popup__close-btn_img" src="<%=require('./images/close-Icon.png')%>"
+        alt="кнопка закрыть">
       <img class="popup__image" src="#" alt="#">
       <p class="popup__image-descr"></p>
     </div>
   </div>
+
+  <div class="popup popup_remove-card">
+    <div class="popup__body">
+      <div class="popup__dialog">
+        <img class="popup__close-btn" src="<%=require('./images/close-Icon.png')%>" alt="">
+        <div class="popup__title popup__title_remove-card">Вы уверены?</div>
+        <button class="popup__button popup__button_remove-card">Да</button>
+      </div>
+    </div>
+  </div>
+
   <template id="insert-card">
     <li class="insert-card__item">
       <img class="insert-card__img" src="#" alt="#">
       <img class="insert-card__remove" src="<%=require('./images/remove-icon.png')%>" alt="корзина">
       <div class="insert-card__info">
         <h2 class="insert-card__title"></h2>
-        <div class="insert-card__icon" src="<%=require('./images/like-disabled.png')%>" alt="иконка"></div>
+        <div>
+          <div class="insert-card__icon" src="<%=require('./images/like-disabled.png')%>" alt="иконка"></div>
+          <div class="insert-card__counter"></div>
+        </div>
       </div>
     </li>
   </template>
