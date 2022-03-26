@@ -110,8 +110,8 @@ cardValidator.enableValidation();
 
 // Попап формы редактирования информации
 editProfileButton.addEventListener('click', () => {
-  formName.value = userData.name;
-  formDescr.value = userData.desc;
+  formName.value = userInfo.getUserInfo().name;
+  formDescr.value = userInfo.getUserInfo().desc;
   profileInputPopup.open();
 })
 
@@ -120,8 +120,6 @@ const profileInputPopup = new PopupWithForm(formModalProfile, {
     userInfo.setUserInfo(formData.name, formData.descr);
   }
 })
-
-const userData = userInfo.getUserInfo();
 
 profileInputPopup.setEventListeners()
 formValidator.enableValidation();
