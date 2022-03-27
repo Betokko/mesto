@@ -8,6 +8,9 @@ export {
     addCardButton,
     insertCardContainer,
     modalImg,
+    profileName,
+    profileAbout,
+    profileAvatar,
 }
 const config = {
     formSelector: '.popup__form',
@@ -30,3 +33,6 @@ const formModalCard = document.querySelector('.popup_card');
 const addCardButton = document.querySelector('.profile__add-button');
 const insertCardContainer = document.querySelector('.insert-card');
 const modalImg = document.querySelector('.popup_img');
+const profileName = document.querySelector('.profile__name');
+const profileAbout = document.querySelector('.profile__description');
+const profileAvatar = document.querySelector('.profile__image');

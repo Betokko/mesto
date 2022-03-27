@@ -14,59 +14,24 @@ import {
   addCardButton,
   insertCardContainer,
   modalImg,
-} from './constatns.js'
-import '../pages/index.css'
+} from './constatns.js';
+import '../pages/index.css';
+import API from './API.js';
 
-// Global scope
-const jotaro = new URL('../images/jojo/jotaro.webp',
-  import.meta.url);
-const joseph = new URL('../images/jojo/joseph.png',
-  import.meta.url);
-const dio = new URL('../images/jojo/dio.png',
-  import.meta.url);
-const avdol = new URL('../images/jojo/avdol.png',
-  import.meta.url);
-const kakyoin = new URL('../images/jojo/kakyoin.png',
-  import.meta.url);
-const polnareff = new URL('../images/jojo/polnareff.png',
-  import.meta.url);
-
-const initialCards = [{
-    name: 'Jotaro',
-    link: jotaro
-  },
-  {
-    name: 'Joseph',
-    link: joseph
-  },
-  {
-    name: 'Dio',
-    link: dio
-  },
-  {
-    name: 'Avdol',
-    link: avdol
-  },
-  {
-    name: 'Kakyoin',
-    link: kakyoin
-  },
-  {
-    name: 'Polnareff',
-    link: polnareff
-  }
-];
-
-
+// Валидация
 const formValidator = new FormValidator(config, formModalProfile);
 const cardValidator = new FormValidator(config, formModalCard);
+// API
+const api = new API();
+api.getProfileInfo();
+
 const cardImagePopup = new PopupWithImage(modalImg);
 cardImagePopup.setEventListeners()
+
 const userInfo = new UserInfo({
   name: '.profile__name',
   desc: '.profile__description'
 });
-
 
 // Функция получения объекта карточки
 function getCard(name, link) {
@@ -79,19 +44,6 @@ function getCard(name, link) {
   return cardElement
 }
 
-// Отрисовка массива карточек
-function renderCardsArray() {
-  const cards = new Section({
-    items: initialCards,
-    renderer: (cardItem) => {
-      const card = getCard(cardItem.name, cardItem.link)
-      cards.addItem(card)
-    },
-  }, insertCardContainer);
-  cards.renderItems();
-}
-renderCardsArray();
-
 // Попап формы длбавления новой карточки
 addCardButton.addEventListener('click', () => {
   cardInputPopup.open();
@@ -101,6 +53,8 @@ const cardInputPopup = new PopupWithForm(formModalCard, {
   handleFormSubmit: (formData) => {
     const card = getCard(formData.name, formData.descr)
     insertCardContainer.prepend(card)
+    console.log(111);
+    api.loadCard(formData.name, formData.descr)
   }
 });
 cardInputPopup.setEventListeners();
@@ -118,8 +72,27 @@ editProfileButton.addEventListener('click', () => {
 const profileInputPopup = new PopupWithForm(formModalProfile, {
   handleFormSubmit: (formData) => {
     userInfo.setUserInfo(formData.name, formData.descr);
+    api.setProfileInfo()
   }
 })
 
 profileInputPopup.setEventListeners()
 formValidator.enableValidation();
+
+
+
+
+// Отрисовка массива карточек
+function renderCardsArray() {
+  api.getInitialCards().then(initialCards => {
+    const cards = new Section({
+      items: initialCards,
+      renderer: (cardItem) => {
+        const card = getCard(cardItem.name, cardItem.link)
+        cards.addItem(card)
+      },
+    }, insertCardContainer);
+    cards.renderItems();
+  });
+}
+renderCardsArray();
