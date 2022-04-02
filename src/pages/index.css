@@ -56,3 +56,4 @@
 @import url('../blocks/popup/__error/_visible/popup__error_visible.css');
 @import url('../blocks/popup/__button/_remove-card/popup__button_remove-card.css');
 @import url('../blocks/popup/__title/_remove-card/popup__title_remove-card.css');
+@import url('../blocks/popup/__descr/_edit-profile/popup__descr_edit-profile.css');

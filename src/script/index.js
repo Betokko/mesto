@@ -15,6 +15,7 @@ import {
   insertCardContainer,
   modalImg,
   removeCardPopupSelector,
+  editAvatarPopupSelector,
   APIToken
 } from './constatns.js';
 import '../pages/index.css';
@@ -44,20 +45,22 @@ addCardButton.addEventListener('click', () => {
 })
 
 const cardInputPopup = new PopupWithForm(formModalCard, {
-  handleFormSubmit: (formData) => {
-    const card = getCard(formData.name, formData.descr,)
+  handleFormSubmit: (formData, button) => {
+    const card = getCard(formData)
     insertCardContainer.prepend(card)
+    card.querySelector('.insert-card__img').src = formData.descr;
     api.loadCard(formData.name, formData.descr)
-
+    api.renderLoading(true, button)
   }
 });
 cardInputPopup.setEventListeners();
 cardValidator.enableValidation();
 
 const profileInputPopup = new PopupWithForm(formModalProfile, {
-  handleFormSubmit: (formData) => {
+  handleFormSubmit: (formData, button) => {
     userInfo.setUserInfo(formData.name, formData.descr);
     api.setProfileInfo()
+    api.renderLoading(true, button)
   }
 })
 profileInputPopup.setEventListeners()
@@ -67,8 +70,21 @@ const cardImagePopup = new PopupWithImage(modalImg);
 cardImagePopup.setEventListeners()
 
 const removeCardPopup = new Popup(removeCardPopupSelector);
-removeCardPopup.setEventListeners()
+removeCardPopup.setEventListeners(removeCardPopupSelector)
 
+// Расбота с аватаркой
+const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, {
+  handleFormSubmit: (formData, button) => {
+    document.querySelector('.profile__image').src = formData.descr;
+    api.setAvatar(formData.descr);
+    api.renderLoading(true, button)
+  }
+});
+editAvatarPopup.setEventListeners(editAvatarPopupSelector);
+document.querySelector('.profile__image').addEventListener('click', () => {
+  editAvatarPopup.open()
+
+})
 
 // Попап формы редактирования информации
 editProfileButton.addEventListener('click', () => {
@@ -79,28 +95,27 @@ editProfileButton.addEventListener('click', () => {
 
 
 // Функция получения объекта карточки
-function getCard(name, link, likes, cardId, data) {
-  console.log(data);
-  const card = new Card(name, link, '#insert-card', {
+function getCard(data) {
+  const card = new Card(data.name, data.link, '#insert-card', {
     handleCardClick: () => {
-      cardImagePopup.open(name, link);
+      cardImagePopup.open(data.name, data.link);
     }
   }, {
     handleRemoveButton: () => {
       removeCardPopup.open();
       document.querySelector('.popup__button_remove-card').addEventListener('click', () => {
-        api.removeCard(cardId)
+        api.removeCard(data._id)
         cardElement.remove()
         removeCardPopup.close()
       })
     }
   }, {
     addLike: () => {
-      api.likeCard(cardId)
+      api.likeCard(data._id)
     }
   }, {
-    removeLike: ()=> {
-      api.removeLikeCard(cardId)
+    removeLike: () => {
+      api.removeLikeCard(data._id)
     }
   })
   const cardElement = card.renderCard(data);
@@ -114,7 +129,7 @@ function renderCardsArray() {
       const cards = new Section({
         items: initialCards,
         renderer: (cardItem) => {
-          const card = getCard(cardItem.name, cardItem.link, cardItem.likes.length, cardItem._id, cardItem)
+          const card = getCard(cardItem)
           if (res._id !== cardItem.owner._id) {
             card.querySelector('.insert-card__remove').remove()
           }

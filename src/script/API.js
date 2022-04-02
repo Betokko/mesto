@@ -85,6 +85,26 @@ export default class API {
     })
   }
 
+  setAvatar(avaratLink) {
+    return fetch(`${this._url}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: {
+          authorization: this._authorization,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          avatar: avaratLink
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .catch(err => console.log(err))
+  }
+
   loadCard(name, link) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
@@ -122,5 +142,10 @@ export default class API {
         authorization: this._authorization
       }
     })
+  }
+  renderLoading(isLoading, element) {
+    if (isLoading) {
+      element.textContent = 'Сохранение...';
+    }
   }
 }

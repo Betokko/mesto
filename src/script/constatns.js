@@ -12,6 +12,7 @@ export {
     profileAbout,
     profileAvatar,
     removeCardPopupSelector,
+    editAvatarPopupSelector,
     APIToken
 }
 const config = {
@@ -39,6 +40,7 @@ const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__description');
 const profileAvatar = document.querySelector('.profile__image');
 const removeCardPopupSelector = document.querySelector('.popup_remove-card');
+const editAvatarPopupSelector = document.querySelector('.popup_edit-profile');
 const APIToken = {
     url: 'https://mesto.nomoreparties.co/v1/cohort-38',
     authorization: '81838a1e-c453-4d18-88cc-147b40de0a34'

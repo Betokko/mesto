@@ -28,11 +28,11 @@ export default class Card {
         this._cardImage.alt = this._name;
         this._setEventListener();
         this._likeCounter.textContent = data.likes.length;
-        // data.likes.forEach(item => {
-        //     if (item._id === "ba2f0eaed78a82ff94b11031") {
-        //         this._element.querySelector('.insert-card__icon').classList.add('insert-card__icon_active')
-        //     }
-        // })
+        data.likes.forEach(item => {
+            if (item._id === "ba2f0eaed78a82ff94b11031") {
+                this._element.querySelector('.insert-card__icon').classList.add('insert-card__icon_active')
+            }
+        })
         return this._element;
     }
     _setEventListener() {
