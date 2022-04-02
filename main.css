@@ -4,7 +4,7 @@
 .header{border-bottom:1px solid rgba(84,84,84,.7);margin:0 auto;max-width:880px;padding-top:45px}@media (max-width:1023px){.header{margin:0 auto;padding-top:28px}}
 .header__logo{display:block;height:33px;margin-bottom:40px;-o-object-fit:fill;object-fit:fill;width:142px}@media (max-width:1023px){.header__logo{height:24.4px;margin:0 0 30.6px 27px;width:103.74px}}
 .profile{align-items:center;display:flex;margin:40px auto 0;max-width:880px}@media (max-width:1023px){.profile{flex-direction:column}}
-.profile__image{border-radius:50%;display:block;height:120px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;width:120px}
+.profile__image{border-radius:50%;cursor:pointer;display:block;height:120px;-o-object-fit:cover;object-fit:cover;-o-object-position:center;object-position:center;position:relative;transition:opacity .2s;width:120px}.profile__image:hover{opacity:20%}
 .profile__info{display:flex;flex-direction:column;margin:0 30px;max-width:550px}@media (max-width:1023px){.profile__info{margin:26px 0 0;max-width:calc(100% - 38px)}}
 .profile__add-button{border:2px solid #fff;box-sizing:border-box;cursor:pointer;height:50px;margin-left:auto;min-width:150px;position:relative;transition:opacity .2s}.profile__add-button:hover{opacity:.6}@media (max-width:1023px){.profile__add-button{margin:32px 19px 0;width:calc(100% - 38px)}}.profile__add-button:before{background-color:#fff;content:"";height:22px;left:calc(50% - 1px);position:absolute;top:calc(50% - 11px);width:2px}.profile__add-button:after{background-color:#fff;content:"";height:2px;left:calc(50% - 11px);position:absolute;top:calc(50% - 1px);width:22px}
 .profile__name{font-size:42px;font-weight:500;line-height:48px;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media (max-width:1023px){.profile__name{font-size:27px;line-height:32.68px}}
@@ -43,4 +43,5 @@
 .popup__error_visible{display:block}
 .popup__button_remove-card{margin:0}
 .popup__title_remove-card{padding-bottom:38px}
+.popup__descr_edit-profile{margin-top:0}
 
