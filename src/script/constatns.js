@@ -11,6 +11,8 @@ export {
     profileName,
     profileAbout,
     profileAvatar,
+    removeCardPopupSelector,
+    APIToken
 }
 const config = {
     formSelector: '.popup__form',
@@ -36,3 +38,8 @@ const modalImg = document.querySelector('.popup_img');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__description');
 const profileAvatar = document.querySelector('.profile__image');
+const removeCardPopupSelector = document.querySelector('.popup_remove-card');
+const APIToken = {
+    url: 'https://mesto.nomoreparties.co/v1/cohort-38',
+    authorization: '81838a1e-c453-4d18-88cc-147b40de0a34'
+  }

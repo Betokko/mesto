@@ -6,19 +6,56 @@ import {
   formDescr,
 } from './constatns'
 
+
+
+
 export default class API {
   constructor(options) {
-    this._url = 'https://mesto.nomoreparties.co/v1/cohort-38';
-    this._headers = {
-      authorization: '81838a1e-c453-4d18-88cc-147b40de0a34',
-      'Content-Type': 'application/json'
-    }
+    this._url = options.url;
+    this._authorization = options.authorization;
   }
+
+  getMyId() {
+    return fetch(`${this._url}/users/me`, {
+        method: 'GET',
+        headers: {
+          authorization: this._authorization
+        }
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(obj => obj)
+      .catch(err => console.log(err))
+  }
+
+  getInitialCards() {
+    return fetch(`${this._url}/cards`, {
+        method: 'GET',
+        headers: {
+          authorization: this._authorization
+        }
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(arr => arr)
+      .catch(err => console.log(err))
+  }
+
 
   getProfileInfo() {
     fetch(`${this._url}/users/me`, {
         method: 'GET',
-        headers: this._headers
+        headers: {
+          authorization: this._authorization
+        }
       })
       .then(res => {
         if (res.ok) {
@@ -34,25 +71,13 @@ export default class API {
       .catch(err => console.log(err))
   }
 
-  getInitialCards() {
-    return fetch(`${this._url}/cards`, {
-        method: 'GET',
-        headers: this._headers
-      })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(arr => arr)
-      .catch(err => console.log(err))
-  }
-
   setProfileInfo() {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: formName.value,
         about: formDescr.value
@@ -61,13 +86,41 @@ export default class API {
   }
 
   loadCard(name, link) {
-    return fetch(`${this._url}/cards` , {
+    return fetch(`${this._url}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         name: name,
         link: link
       })
+    })
+  }
+
+  removeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization
+      }
+    })
+  }
+  likeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization
+      }
+    })
+  }
+  removeLikeCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization
+      }
     })
   }
 }
