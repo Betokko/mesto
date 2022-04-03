@@ -6,6 +6,6 @@
 
 @media (max-width: 767px) {
     .popup__image {
-        height: 100%;
+        height: calc(100vh - 25px - 40px);
     }
 }

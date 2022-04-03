@@ -44,7 +44,7 @@ addCardButton.addEventListener('click', () => {
   cardInputPopup.open();
 })
 
-const cardInputPopup = new PopupWithForm(formModalCard, {
+const cardInputPopup = new PopupWithForm('.popup_card', {
   handleFormSubmit: (formData, button) => {
     const card = getCard(formData)
     insertCardContainer.prepend(card)
@@ -56,7 +56,7 @@ const cardInputPopup = new PopupWithForm(formModalCard, {
 cardInputPopup.setEventListeners();
 cardValidator.enableValidation();
 
-const profileInputPopup = new PopupWithForm(formModalProfile, {
+const profileInputPopup = new PopupWithForm('.popup_profile', {
   handleFormSubmit: (formData, button) => {
     userInfo.setUserInfo(formData.name, formData.descr);
     api.setProfileInfo()
@@ -66,17 +66,17 @@ const profileInputPopup = new PopupWithForm(formModalProfile, {
 profileInputPopup.setEventListeners()
 formValidator.enableValidation();
 
-const cardImagePopup = new PopupWithImage(modalImg);
+const cardImagePopup = new PopupWithImage('.popup_img');
 cardImagePopup.setEventListeners()
 
-const removeCardPopup = new Popup(removeCardPopupSelector);
+const removeCardPopup = new Popup('.popup_remove-card');
 removeCardPopup.setEventListeners(removeCardPopupSelector)
 
 // Расбота с аватаркой
-const editAvatarPopup = new PopupWithForm(editAvatarPopupSelector, {
+const editAvatarPopup = new PopupWithForm('.popup_avatar', {
   handleFormSubmit: (formData, button) => {
     document.querySelector('.profile__image').src = formData.descr;
-    api.setAvatar(formData.descr);
+    api.setAvatar(formData.descr)
     api.renderLoading(true, button)
   }
 });
@@ -91,6 +91,7 @@ editProfileButton.addEventListener('click', () => {
   formName.value = userInfo.getUserInfo().name;
   formDescr.value = userInfo.getUserInfo().desc;
   profileInputPopup.open();
+  formValidator.resetValidation()
 })
 
 
@@ -111,17 +112,19 @@ function getCard(data) {
     }
   }, {
     addLike: (icon) => {
-      api.likeCard(data._id).then(res => {
-        icon.classList.add('insert-card__icon_active')
-        icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent + 1}`
-      })
+      api.likeCard(data._id).then(() => {
+          icon.classList.add('insert-card__icon_active')
+          icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent + 1}`
+        })
+        .catch(err => console.log(err))
     }
   }, {
     removeLike: (icon) => {
-      api.removeLikeCard(data._id).then(res => {
-        icon.classList.remove('insert-card__icon_active')
-        icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent - 1}`
-      })
+      api.removeLikeCard(data._id).then(() => {
+          icon.classList.remove('insert-card__icon_active')
+          icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent - 1}`
+        })
+        .catch(err => console.log(err))
     }
   })
   const cardElement = card.renderCard(data);
@@ -132,18 +135,19 @@ function getCard(data) {
 function renderCardsArray() {
   api.getMyId().then(res => {
     api.getInitialCards().then(initialCards => {
-      const cards = new Section({
-        items: initialCards,
-        renderer: (cardItem) => {
-          const card = getCard(cardItem)
-          if (res._id !== cardItem.owner._id) {
-            card.querySelector('.insert-card__remove').remove()
-          }
-          cards.addItem(card)
-        },
-      }, insertCardContainer);
-      cards.renderItems();
-    });
+        const cards = new Section({
+          items: initialCards,
+          renderer: (cardItem) => {
+            const card = getCard(cardItem)
+            if (res._id !== cardItem.owner._id) {
+              card.querySelector('.insert-card__remove').remove()
+            }
+            cards.addItem(card)
+          },
+        }, insertCardContainer);
+        cards.renderItems();
+      })
+      .catch(err => console.log(err))
   })
 }
 renderCardsArray();
