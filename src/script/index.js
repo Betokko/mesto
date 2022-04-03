@@ -4,6 +4,7 @@ import Section from "./Section.js";
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithForm from "./PopupWithForm.js";
 import UserInfo from "./UserInfo.js";
+import ConfirmationPopup from "./ConfirmationPopup.js";
 import {
   config,
   formModalProfile,
@@ -27,16 +28,30 @@ import Popup from "./Popup.js";
 // Валидация
 const formValidator = new FormValidator(config, formModalProfile);
 const cardValidator = new FormValidator(config, formModalCard);
+
 // API
 const api = new API(APIToken);
-api.getProfileInfo();
+
+// Запуск отрисвоки массива карточек
+Promise.all([api.getProfileInfo(), api.getInitialCards()])
+  .then([api.getProfileInfo(), renderCardsArray()])
+  .catch(err => console.log(err))
 
 
+
+// Создаем экземпляр класса UserInfo 
 const userInfo = new UserInfo({
   name: '.profile__name',
-  desc: '.profile__description'
+  about: '.profile__description',
+  avatar: '.profile__image',
+  id: ''
 });
-
+// Данные с сервера вставляем на старницу
+api.getProfileInfo()
+  .then(res => {
+    userInfo.setAvatar(res.avatar)
+    userInfo.setUserInfo(res.name, res.about, res._id)
+  })
 
 
 // Попап формы длбавления новой карточки
@@ -46,17 +61,21 @@ addCardButton.addEventListener('click', () => {
 
 const cardInputPopup = new PopupWithForm('.popup_card', {
   handleFormSubmit: (formData, button) => {
+    const cards = new Section({}, insertCardContainer);
     const card = getCard(formData)
-    insertCardContainer.prepend(card)
+    cards.addSingleitem(card)
     card.querySelector('.insert-card__img').src = formData.descr;
     api.loadCard(formData.name, formData.descr)
       .then(() => {
         cardInputPopup.close()
       })
       .catch(err => console.log(err))
-    api.renderLoading(true, button)
+      .finally(() => {
+        api.renderLoading(true, button)
+      })
   }
 });
+
 cardInputPopup.setEventListeners();
 cardValidator.enableValidation();
 
@@ -68,16 +87,19 @@ const profileInputPopup = new PopupWithForm('.popup_profile', {
         profileInputPopup.close()
       })
       .catch(err => console.log(err))
-    api.renderLoading(true, button)
+      .finally(() => {
+        api.renderLoading(true, button)
+      })
   }
 })
+
 profileInputPopup.setEventListeners()
 formValidator.enableValidation();
 
 const cardImagePopup = new PopupWithImage('.popup_img');
 cardImagePopup.setEventListeners()
 
-const removeCardPopup = new Popup('.popup_remove-card');
+const removeCardPopup = new ConfirmationPopup('.popup_remove-card');
 removeCardPopup.setEventListeners(removeCardPopupSelector)
 
 // Расбота с аватаркой
@@ -89,7 +111,9 @@ const editAvatarPopup = new PopupWithForm('.popup_avatar', {
         editAvatarPopup.close()
       })
       .catch(err => console.log(err))
-    api.renderLoading(true, button)
+      .finally(() => {
+        api.renderLoading(true, button)
+      })
   }
 });
 editAvatarPopup.setEventListeners(editAvatarPopupSelector);
@@ -101,7 +125,7 @@ document.querySelector('.profile__image').addEventListener('click', () => {
 // Попап формы редактирования информации
 editProfileButton.addEventListener('click', () => {
   formName.value = userInfo.getUserInfo().name;
-  formDescr.value = userInfo.getUserInfo().desc;
+  formDescr.value = userInfo.getUserInfo().about;
   profileInputPopup.open();
   // formValidator.resetValidation()
 })
@@ -116,14 +140,18 @@ function getCard(data) {
   }, {
     handleRemoveButton: () => {
       removeCardPopup.open();
-      document.querySelector('.popup__button_remove-card').addEventListener('click', () => {
+
+      function huita() {
         api.removeCard(data._id)
         cardElement.remove()
         removeCardPopup.close()
-      })
+      }
+
+      document.querySelector('.popup__button_remove-card').addEventListener('click', huita)
     }
   }, {
     addLike: (icon) => {
+      console.log(icon);
       api.likeCard(data._id)
         .then(() => {
           icon.classList.add('insert-card__icon_active')
@@ -145,9 +173,10 @@ function getCard(data) {
   return cardElement
 }
 
+
 // Отрисовка массива карточек
 function renderCardsArray() {
-  api.getMyId()
+  api.getProfileInfo()
     .then(res => {
       api.getInitialCards()
         .then(initialCards => {
@@ -165,4 +194,3 @@ function renderCardsArray() {
         .catch(err => console.log(err))
     })
 }
-renderCardsArray();

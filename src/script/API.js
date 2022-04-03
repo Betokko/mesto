@@ -19,17 +19,6 @@ export default class API {
     return Promise.reject(`Ошибка ${res.status}`)
   }
 
-  getMyId() {
-    return fetch(`${this._url}/users/me`, {
-        method: 'GET',
-        headers: {
-          authorization: this._authorization
-        }
-      })
-      .then(this._checkResponse)
-      .then(obj => obj)
-  }
-
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
         method: 'GET',
@@ -42,20 +31,15 @@ export default class API {
       .catch(err => console.log(err))
   }
 
-
   getProfileInfo() {
-    fetch(`${this._url}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
         method: 'GET',
         headers: {
           authorization: this._authorization
         }
       })
       .then(this._checkResponse)
-      .then(obj => {
-        profileName.textContent = obj.name;
-        profileAbout.textContent = obj.about;
-        profileAvatar.src = obj.avatar
-      })
+      .then(obj => obj)
       .catch(err => console.log(err))
   }
 
