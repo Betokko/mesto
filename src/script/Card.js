@@ -1,7 +1,15 @@
 import API from "./API";
 
 export default class Card {
-    constructor(name, link, templateSelector, {handleCardClick}, {handleRemoveButton}, {addLike}, {removeLike}) {
+    constructor(name, link, templateSelector, {
+        handleCardClick
+    }, {
+        handleRemoveButton
+    }, {
+        addLike
+    }, {
+        removeLike
+    }) {
         this._name = name;
         this._link = link;
         this._templateSelector = templateSelector;
@@ -46,15 +54,10 @@ export default class Card {
     }
 
     _handlerLikeButton(evt) {
-        this._likeIcon = evt.target
         if (!evt.target.classList.contains('insert-card__icon_active')) {
-            this._addLike()
-            evt.target.classList.add('insert-card__icon_active')
-            this._likeIcon.nextElementSibling.textContent = `${+this._likeIcon.nextElementSibling.textContent + 1}`
+            this._addLike(evt.target)
         } else {
-            this._removeLike()
-            evt.target.classList.remove('insert-card__icon_active')
-            this._likeIcon.nextElementSibling.textContent = `${+this._likeIcon.nextElementSibling.textContent - 1}`
+            this._removeLike(evt.target)
         }
     }
 

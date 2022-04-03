@@ -110,12 +110,18 @@ function getCard(data) {
       })
     }
   }, {
-    addLike: () => {
-      api.likeCard(data._id)
+    addLike: (icon) => {
+      api.likeCard(data._id).then(res => {
+        icon.classList.add('insert-card__icon_active')
+        icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent + 1}`
+      })
     }
   }, {
-    removeLike: () => {
-      api.removeLikeCard(data._id)
+    removeLike: (icon) => {
+      api.removeLikeCard(data._id).then(res => {
+        icon.classList.remove('insert-card__icon_active')
+        icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent - 1}`
+      })
     }
   })
   const cardElement = card.renderCard(data);

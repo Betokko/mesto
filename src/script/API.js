@@ -134,6 +134,7 @@ export default class API {
         authorization: this._authorization
       }
     })
+    .then(res => res)
   }
   removeLikeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
