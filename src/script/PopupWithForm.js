@@ -22,7 +22,6 @@ export default class PopupWithForm extends Popup {
             evt.preventDefault();
             let button = evt.target.querySelector('.popup__button')
             this._handleFormSubmit(this._getInputValues(), button);
-            this.close();
         })
     }
 

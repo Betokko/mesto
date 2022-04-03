@@ -72,6 +72,7 @@ export default class API {
         })
       })
       .then(this._checkResponse)
+      .then(res => res)
       .catch(err => console.log(err))
   }
 
@@ -87,6 +88,7 @@ export default class API {
         })
       })
       .then(this._checkResponse)
+      .then(res => res)
       .catch(err => console.log(err))
   }
 
@@ -103,6 +105,7 @@ export default class API {
         })
       })
       .then(this._checkResponse)
+      .then(res => res)
       .catch(err => console.log(err))
   }
 

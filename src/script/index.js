@@ -50,6 +50,10 @@ const cardInputPopup = new PopupWithForm('.popup_card', {
     insertCardContainer.prepend(card)
     card.querySelector('.insert-card__img').src = formData.descr;
     api.loadCard(formData.name, formData.descr)
+      .then(() => {
+        cardInputPopup.close()
+      })
+      .catch(err => console.log(err))
     api.renderLoading(true, button)
   }
 });
@@ -60,6 +64,10 @@ const profileInputPopup = new PopupWithForm('.popup_profile', {
   handleFormSubmit: (formData, button) => {
     userInfo.setUserInfo(formData.name, formData.descr);
     api.setProfileInfo()
+      .then(() => {
+        profileInputPopup.close()
+      })
+      .catch(err => console.log(err))
     api.renderLoading(true, button)
   }
 })
@@ -77,6 +85,10 @@ const editAvatarPopup = new PopupWithForm('.popup_avatar', {
   handleFormSubmit: (formData, button) => {
     document.querySelector('.profile__image').src = formData.descr;
     api.setAvatar(formData.descr)
+      .then(() => {
+        editAvatarPopup.close()
+      })
+      .catch(err => console.log(err))
     api.renderLoading(true, button)
   }
 });
@@ -91,7 +103,7 @@ editProfileButton.addEventListener('click', () => {
   formName.value = userInfo.getUserInfo().name;
   formDescr.value = userInfo.getUserInfo().desc;
   profileInputPopup.open();
-  formValidator.resetValidation()
+  // formValidator.resetValidation()
 })
 
 
@@ -112,7 +124,8 @@ function getCard(data) {
     }
   }, {
     addLike: (icon) => {
-      api.likeCard(data._id).then(() => {
+      api.likeCard(data._id)
+        .then(() => {
           icon.classList.add('insert-card__icon_active')
           icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent + 1}`
         })
@@ -120,7 +133,8 @@ function getCard(data) {
     }
   }, {
     removeLike: (icon) => {
-      api.removeLikeCard(data._id).then(() => {
+      api.removeLikeCard(data._id)
+        .then(() => {
           icon.classList.remove('insert-card__icon_active')
           icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent - 1}`
         })
@@ -133,21 +147,23 @@ function getCard(data) {
 
 // Отрисовка массива карточек
 function renderCardsArray() {
-  api.getMyId().then(res => {
-    api.getInitialCards().then(initialCards => {
-        const cards = new Section({
-          items: initialCards,
-          renderer: (cardItem) => {
-            const card = getCard(cardItem)
-            if (res._id !== cardItem.owner._id) {
-              card.querySelector('.insert-card__remove').remove()
-            }
-            cards.addItem(card)
-          },
-        }, insertCardContainer);
-        cards.renderItems();
-      })
-      .catch(err => console.log(err))
-  })
+  api.getMyId()
+    .then(res => {
+      api.getInitialCards()
+        .then(initialCards => {
+          const cards = new Section({
+            items: initialCards,
+            renderer: (cardItem) => {
+              const card = getCard(cardItem)
+              if (res._id !== cardItem.owner._id) {
+                card.querySelector('.insert-card__remove').remove()
+              }
+              cards.addItem(card)
+            },
+          }, insertCardContainer);
+          cards.renderItems();
+        })
+        .catch(err => console.log(err))
+    })
 }
 renderCardsArray();
