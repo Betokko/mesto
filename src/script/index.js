@@ -152,7 +152,6 @@ function renderCardsArray() {
       api.getInitialCards()
         .then(initialCards => {
           const cards = new Section({
-            items: initialCards,
             renderer: (cardItem) => {
               const card = getCard(cardItem)
               if (res._id !== cardItem.owner._id) {
@@ -161,7 +160,7 @@ function renderCardsArray() {
               cards.addItem(card)
             },
           }, insertCardContainer);
-          cards.renderItems();
+          cards.renderItems(initialCards);
         })
         .catch(err => console.log(err))
     })
