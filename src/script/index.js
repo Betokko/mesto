@@ -32,9 +32,14 @@ const cardValidator = new FormValidator(config, formModalCard);
 // API
 const api = new API(APIToken);
 
-// Запуск отрисвоки массива карточек
+// Запуск отрисвоки массива карточек и добавления данных от пользователя
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .then([api.getProfileInfo(), renderCardsArray()])
+  .then(api.getProfileInfo()
+    .then(res => {
+      userInfo.setAvatar(res.avatar)
+      userInfo.setUserInfo(res.name, res.about, res._id)
+    }))
   .catch(err => console.log(err))
 
 
@@ -46,12 +51,6 @@ const userInfo = new UserInfo({
   avatar: '.profile__image',
   id: ''
 });
-// Данные с сервера вставляем на старницу
-api.getProfileInfo()
-  .then(res => {
-    userInfo.setAvatar(res.avatar)
-    userInfo.setUserInfo(res.name, res.about, res._id)
-  })
 
 
 // Попап формы длбавления новой карточки
@@ -63,11 +62,11 @@ const cardInputPopup = new PopupWithForm('.popup_card', {
   handleFormSubmit: (formData, button) => {
     const cards = new Section({}, insertCardContainer);
     const card = getCard(formData)
-    cards.addSingleitem(card)
     card.querySelector('.insert-card__img').src = formData.descr;
     api.loadCard(formData.name, formData.descr)
       .then(() => {
         cardInputPopup.close()
+        cards.addSingleitem(card)
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -81,10 +80,10 @@ cardValidator.enableValidation();
 
 const profileInputPopup = new PopupWithForm('.popup_profile', {
   handleFormSubmit: (formData, button) => {
-    userInfo.setUserInfo(formData.name, formData.descr);
     api.setProfileInfo()
       .then(() => {
         profileInputPopup.close()
+        userInfo.setUserInfo(formData.name, formData.descr)
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -105,10 +104,10 @@ removeCardPopup.setEventListeners(removeCardPopupSelector)
 // Расбота с аватаркой
 const editAvatarPopup = new PopupWithForm('.popup_avatar', {
   handleFormSubmit: (formData, button) => {
-    document.querySelector('.profile__image').src = formData.descr;
     api.setAvatar(formData.descr)
       .then(() => {
         editAvatarPopup.close()
+        userInfo.setAvatar(formData.descr)
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -141,13 +140,13 @@ function getCard(data) {
     handleRemoveButton: () => {
       removeCardPopup.open();
 
-      function huita() {
+      function removeCard() {
         api.removeCard(data._id)
         cardElement.remove()
         removeCardPopup.close()
       }
 
-      document.querySelector('.popup__button_remove-card').addEventListener('click', huita)
+      document.querySelector('.popup__button_remove-card').addEventListener('click', removeCard)
     }
   }, {
     addLike: (icon) => {

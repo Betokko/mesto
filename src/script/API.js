@@ -28,7 +28,6 @@ export default class API {
       })
       .then(this._checkResponse)
       .then(arr => arr)
-      .catch(err => console.log(err))
   }
 
   getProfileInfo() {
