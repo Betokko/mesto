@@ -28,6 +28,7 @@ import Popup from "./Popup.js";
 // Валидация
 const formValidator = new FormValidator(config, formModalProfile);
 const cardValidator = new FormValidator(config, formModalCard);
+const avatarValidator = new FormValidator(config, editAvatarPopupSelector)
 
 // API
 const api = new API(APIToken);
@@ -56,6 +57,7 @@ const userInfo = new UserInfo({
 // Попап формы длбавления новой карточки
 addCardButton.addEventListener('click', () => {
   cardInputPopup.open();
+  cardValidator.resetValidation()
 })
 
 const cardInputPopup = new PopupWithForm('.popup_card', {
@@ -115,10 +117,12 @@ const editAvatarPopup = new PopupWithForm('.popup_avatar', {
       })
   }
 });
+avatarValidator.enableValidation()
+
 editAvatarPopup.setEventListeners(editAvatarPopupSelector);
 document.querySelector('.profile__image').addEventListener('click', () => {
   editAvatarPopup.open()
-
+  avatarValidator.resetValidation()
 })
 
 // Попап формы редактирования информации
@@ -126,7 +130,7 @@ editProfileButton.addEventListener('click', () => {
   formName.value = userInfo.getUserInfo().name;
   formDescr.value = userInfo.getUserInfo().about;
   profileInputPopup.open();
-  // formValidator.resetValidation()
+  formValidator.resetValidation()
 })
 
 
