@@ -35,14 +35,14 @@ const api = new API(APIToken);
 
 // Запуск отрисвоки массива карточек и добавления данных от пользователя
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
-  .then([api.getProfileInfo(), renderCardsArray()])
-  .then(api.getProfileInfo()
+  .then([api.getProfileInfo(), api.getProfileInfo()
     .then(res => {
       userInfo.setAvatar(res.avatar)
       userInfo.setUserInfo(res.name, res.about, res._id)
-    }))
+      renderCardsArray()
+    })
+  ])
   .catch(err => console.log(err))
-
 
 
 // Создаем экземпляр класса UserInfo 
@@ -62,7 +62,6 @@ addCardButton.addEventListener('click', () => {
 
 const cardInputPopup = new PopupWithForm('.popup_card', {
   handleFormSubmit: (formData, button) => {
-    const cards = new Section({}, insertCardContainer);
     const card = getCard(formData)
     card.querySelector('.insert-card__img').src = formData.descr;
     api.loadCard(formData.name, formData.descr)
@@ -101,7 +100,6 @@ const cardImagePopup = new PopupWithImage('.popup_img');
 cardImagePopup.setEventListeners()
 
 const removeCardPopup = new ConfirmationPopup('.popup_remove-card');
-removeCardPopup.setEventListeners(removeCardPopupSelector)
 
 // Расбота с аватаркой
 const editAvatarPopup = new PopupWithForm('.popup_avatar', {
@@ -134,6 +132,7 @@ editProfileButton.addEventListener('click', () => {
 })
 
 
+
 // Функция получения объекта карточки
 function getCard(data) {
   const card = new Card(data.name, data.link, '#insert-card', {
@@ -142,19 +141,19 @@ function getCard(data) {
     }
   }, {
     handleRemoveButton: () => {
-      removeCardPopup.open();
-
       function removeCard() {
         api.removeCard(data._id)
-        cardElement.remove()
-        removeCardPopup.close()
+          .then(() => {
+            cardElement.remove()
+            removeCardPopup.close()
+          })
+          .catch(err => console.log(err))
       }
-
-      document.querySelector('.popup__button_remove-card').addEventListener('click', removeCard)
+      removeCardPopup.open();
+      removeCardPopup.setEventListeners(removeCard)
     }
   }, {
     addLike: (icon) => {
-      console.log(icon);
       api.likeCard(data._id)
         .then(() => {
           icon.classList.add('insert-card__icon_active')
@@ -176,24 +175,21 @@ function getCard(data) {
   return cardElement
 }
 
+const cards = new Section({
+  renderer: (cardItem) => {
+    const card = getCard(cardItem)
+    if (userInfo._id !== cardItem.owner._id) {
+      card.querySelector('.insert-card__remove').remove()
+    }
+    cards.addItem(card)
+  },
+}, insertCardContainer);
 
 // Отрисовка массива карточек
 function renderCardsArray() {
-  api.getProfileInfo()
-    .then(res => {
-      api.getInitialCards()
-        .then(initialCards => {
-          const cards = new Section({
-            renderer: (cardItem) => {
-              const card = getCard(cardItem)
-              if (res._id !== cardItem.owner._id) {
-                card.querySelector('.insert-card__remove').remove()
-              }
-              cards.addItem(card)
-            },
-          }, insertCardContainer);
-          cards.renderItems(initialCards);
-        })
-        .catch(err => console.log(err))
+  api.getInitialCards()
+    .then(initialCards => {
+      cards.renderItems(initialCards);
     })
+    .catch(err => console.log(err))
 }

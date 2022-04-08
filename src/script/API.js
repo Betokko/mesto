@@ -100,7 +100,7 @@ export default class API {
         }
       })
       .then(this._checkResponse)
-      .catch(err => console.log(err))
+      
   }
 
   likeCard(cardId) {

@@ -3,12 +3,11 @@ export default class UserInfo {
         name,
         about,
         avatar,
-        id
     }) {
         this._name = document.querySelector(name);
         this._about = document.querySelector(about);
         this._avatar = document.querySelector(avatar);
-        this._id = id;
+        this._id;
     }
     getUserInfo() {
         this._formValues = {};
