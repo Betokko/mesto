@@ -73,7 +73,7 @@ const cardInputPopup = new PopupWithForm('.popup_card', {
   handleFormSubmit: (formData, button) => {
     api.loadCard(formData.name, formData.descr)
       .then((res) => {
-        const card = getCard(res, res.link)
+        const card = getCard(res)
         cardInputPopup.close()
         cards.addSingleitem(card)
       })
@@ -142,13 +142,15 @@ editProfileButton.addEventListener('click', () => {
 
 
 // Функция получения объекта карточки
-function getCard(data, src) {
-  const card = new Card(data.name, src, '#insert-card', {
+function getCard(data) {
+  const card = new Card(data.name, data.link, '#insert-card', {
     handleCardClick: () => {
-      cardImagePopup.open(data.name, src);
+      cardImagePopup.open(data.name, data.link);
     }
   }, {
     handleRemoveButton: () => {
+      removeCardPopup.open()
+
       function removeCard() {
         api.removeCard(data._id)
           .then(() => {
@@ -157,7 +159,7 @@ function getCard(data, src) {
           })
           .catch(err => console.log(err))
       }
-      removeCardPopup.open();
+      
       removeCardPopup.setEventListeners(removeCard)
     }
   }, {
@@ -185,7 +187,7 @@ function getCard(data, src) {
 
 const cards = new Section({
   renderer: (cardItem) => {
-    const card = getCard(cardItem, cardItem.link)
+    const card = getCard(cardItem)
     if (userInfo._id !== cardItem.owner._id) {
       card.querySelector('.insert-card__remove').remove()
     }

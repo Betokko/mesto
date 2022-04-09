@@ -46,12 +46,6 @@ export default class Card {
         this._element.querySelector('.insert-card__remove').addEventListener('click', this._handleRemoveButton)
         this._cardImage.addEventListener('click', this._handleCardClick)
     }
-    _removeEventListener() {
-        this._element.querySelector('.insert-card__remove').removeEventListener('click', this._handleRemoveButton)
-        this._cardImage.removeEventListener('click', this._handleCardClick)
-        this._element.querySelector('.insert-card__icon').removeEventListener('click', this._handlerLikeButton)
-        console.log('обработчики удалены');
-    }
 
     _handlerLikeButton(evt) {
         if (!evt.target.classList.contains('insert-card__icon_active')) {

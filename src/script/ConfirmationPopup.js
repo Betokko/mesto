@@ -8,11 +8,4 @@ export default class ConfirmationPopup extends Popup {
         super.setEventListeners();
         this._popupSelector.querySelector('.popup__button_remove-card').addEventListener('click', removeCard)
     }
-    open() {
-        super.open()
-    }
-    close() {
-        super.close()
-    }
-
 }
