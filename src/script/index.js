@@ -33,6 +33,15 @@ const avatarValidator = new FormValidator(config, editAvatarPopupSelector)
 // API
 const api = new API(APIToken);
 
+// Отрисовка массива карточек
+function renderCardsArray() {
+  api.getInitialCards()
+    .then(initialCards => {
+      cards.renderItems(initialCards);
+    })
+    .catch(err => console.log(err))
+}
+
 // Запуск отрисвоки массива карточек и добавления данных от пользователя
 Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .then([api.getProfileInfo(), api.getProfileInfo()
@@ -154,18 +163,18 @@ function getCard(data, src) {
   }, {
     addLike: (icon) => {
       api.likeCard(data._id)
-        .then(() => {
+        .then((res) => {
           icon.classList.add('insert-card__icon_active')
-          icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent + 1}`
+          icon.nextElementSibling.textContent = res.likes.length
         })
         .catch(err => console.log(err))
     }
   }, {
     removeLike: (icon) => {
       api.removeLikeCard(data._id)
-        .then(() => {
+        .then((res) => {
           icon.classList.remove('insert-card__icon_active')
-          icon.nextElementSibling.textContent = `${+icon.nextElementSibling.textContent - 1}`
+          icon.nextElementSibling.textContent = res.likes.length
         })
         .catch(err => console.log(err))
     }
@@ -184,11 +193,3 @@ const cards = new Section({
   },
 }, insertCardContainer);
 
-// Отрисовка массива карточек
-function renderCardsArray() {
-  api.getInitialCards()
-    .then(initialCards => {
-      cards.renderItems(initialCards);
-    })
-    .catch(err => console.log(err))
-}
