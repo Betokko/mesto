@@ -1,5 +1,3 @@
-import API from "./API";
-
 export default class Card {
     constructor(name, link, templateSelector, {
         handleCardClick
@@ -34,23 +32,25 @@ export default class Card {
         this._element.querySelector('.insert-card__title').textContent = this._name;
         this._cardImage.src = this._link;
         this._cardImage.alt = this._name;
-        this._setEventListener();
         this._likeCounter.textContent = data.likes.length;
         data.likes.forEach(item => {
             if (item._id === "ba2f0eaed78a82ff94b11031") {
                 this._element.querySelector('.insert-card__icon').classList.add('insert-card__icon_active')
             }
         })
+        this._setEventListener();
         return this._element;
     }
     _setEventListener() {
         this._element.querySelector('.insert-card__icon').addEventListener('click', this._handlerLikeButton.bind(this))
-        this._element.querySelector('.insert-card__remove').addEventListener('click', () => {
-            this._handleRemoveButton();
-        })
-        this._cardImage.addEventListener('click', () => {
-            this._handleCardClick()
-        })
+        this._element.querySelector('.insert-card__remove').addEventListener('click', this._handleRemoveButton)
+        this._cardImage.addEventListener('click', this._handleCardClick)
+    }
+    _removeEventListener() {
+        this._element.querySelector('.insert-card__remove').removeEventListener('click', this._handleRemoveButton)
+        this._cardImage.removeEventListener('click', this._handleCardClick)
+        this._element.querySelector('.insert-card__icon').removeEventListener('click', this._handlerLikeButton)
+        console.log('обработчики удалены');
     }
 
     _handlerLikeButton(evt) {

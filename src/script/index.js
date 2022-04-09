@@ -71,9 +71,9 @@ addCardButton.addEventListener('click', () => {
 
 const cardInputPopup = new PopupWithForm('.popup_card', {
   handleFormSubmit: (formData, button) => {
-    const card = getCard(formData, formData.descr)
     api.loadCard(formData.name, formData.descr)
-      .then(() => {
+      .then((res) => {
+        const card = getCard(res, res.link)
         cardInputPopup.close()
         cards.addSingleitem(card)
       })
@@ -192,4 +192,3 @@ const cards = new Section({
     cards.addItem(card)
   },
 }, insertCardContainer);
-

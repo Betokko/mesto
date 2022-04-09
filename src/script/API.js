@@ -126,6 +126,8 @@ export default class API {
   renderLoading(isLoading, element) {
     if (isLoading) {
       element.textContent = 'Сохранение...';
+    } else {
+      element.textContent = 'www'
     }
   }
 }
