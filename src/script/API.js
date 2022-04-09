@@ -39,7 +39,6 @@ export default class API {
       })
       .then(this._checkResponse)
       .then(obj => obj)
-      .catch(err => console.log(err))
   }
 
   setProfileInfo() {

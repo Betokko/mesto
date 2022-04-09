@@ -60,9 +60,4 @@ export default class Card {
             this._removeLike(evt.target)
         }
     }
-
-    _removeCard(evt) {
-        evt.target.closest('.insert-card__item').remove();
-        this._element = null
-    }
 };
