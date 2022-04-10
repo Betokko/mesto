@@ -71,6 +71,7 @@ addCardButton.addEventListener('click', () => {
 
 const cardInputPopup = new PopupWithForm('.popup_card', {
   handleFormSubmit: (formData, button) => {
+    api.renderLoading(true, button)
     api.loadCard(formData.name, formData.descr)
       .then((res) => {
         const card = getCard(res)
@@ -79,7 +80,7 @@ const cardInputPopup = new PopupWithForm('.popup_card', {
       })
       .catch(err => console.log(err))
       .finally(() => {
-        api.renderLoading(true, button)
+        api.renderLoading(false, button)
       })
   }
 });
@@ -89,6 +90,7 @@ cardValidator.enableValidation();
 
 const profileInputPopup = new PopupWithForm('.popup_profile', {
   handleFormSubmit: (formData, button) => {
+    api.renderLoading(true, button)
     api.setProfileInfo()
       .then(() => {
         profileInputPopup.close()
@@ -96,7 +98,7 @@ const profileInputPopup = new PopupWithForm('.popup_profile', {
       })
       .catch(err => console.log(err))
       .finally(() => {
-        api.renderLoading(true, button)
+        api.renderLoading(false, button)
       })
   }
 })
@@ -112,6 +114,7 @@ cardImagePopup.setEventListeners()
 // Расбота с аватаркой
 const editAvatarPopup = new PopupWithForm('.popup_avatar', {
   handleFormSubmit: (formData, button) => {
+    api.renderLoading(true, button)
     api.setAvatar(formData.descr)
       .then(() => {
         editAvatarPopup.close()
@@ -119,7 +122,7 @@ const editAvatarPopup = new PopupWithForm('.popup_avatar', {
       })
       .catch(err => console.log(err))
       .finally(() => {
-        api.renderLoading(true, button)
+        api.renderLoading(false, button)
       })
   }
 });
