@@ -54,4 +54,7 @@ export default class Card {
             this._removeLike(evt.target)
         }
     }
+    delete() {
+        this._element.remove()
+    }
 };

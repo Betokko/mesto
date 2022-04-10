@@ -107,7 +107,7 @@ formValidator.enableValidation();
 const cardImagePopup = new PopupWithImage('.popup_img');
 cardImagePopup.setEventListeners()
 
-const removeCardPopup = new ConfirmationPopup('.popup_remove-card');
+
 
 // Расбота с аватаркой
 const editAvatarPopup = new PopupWithForm('.popup_avatar', {
@@ -140,6 +140,19 @@ editProfileButton.addEventListener('click', () => {
 })
 
 
+const removeCardPopup = new ConfirmationPopup('.popup_remove-card', () => {
+  removeCard(removeCardPopup.getCard())
+});
+removeCardPopup.setEventListeners()
+
+function removeCard(data) {
+  api.removeCard(data._id)
+    .then(() => {
+      data.element.remove()
+      removeCardPopup.close()
+    })
+    .catch(err => console.log(err))
+}
 
 // Функция получения объекта карточки
 function getCard(data) {
@@ -148,19 +161,10 @@ function getCard(data) {
       cardImagePopup.open(data.name, data.link);
     }
   }, {
-    handleRemoveButton: () => {
+    handleRemoveButton: (evt) => {
       removeCardPopup.open()
-
-      function removeCard() {
-        api.removeCard(data._id)
-          .then(() => {
-            cardElement.remove()
-            removeCardPopup.close()
-          })
-          .catch(err => console.log(err))
-      }
-      
-      removeCardPopup.setEventListeners(removeCard)
+      const card = evt.target.closest('.insert-card__item');
+      removeCardPopup.setCard(data, card)
     }
   }, {
     addLike: (icon) => {
