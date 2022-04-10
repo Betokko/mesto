@@ -55,7 +55,6 @@ export default class API {
       })
       .then(this._checkResponse)
       .then(res => res)
-      .catch(err => console.log(err))
   }
 
   setAvatar(avaratLink) {
@@ -71,7 +70,6 @@ export default class API {
       })
       .then(this._checkResponse)
       .then(res => res)
-      .catch(err => console.log(err))
   }
 
   loadCard(name, link) {
@@ -88,7 +86,6 @@ export default class API {
       })
       .then(this._checkResponse)
       .then(res => res)
-      .catch(err => console.log(err))
   }
 
   removeCard(cardId) {
