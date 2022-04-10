@@ -1,0 +1,8 @@
+.prodile__edit-icon {
+    content: '';
+    height: 120px;
+    width: 120px;
+    background: center / 26px no-repeat url("../../../images/edit-btn.png"),rgba(0, 0, 0, .8);
+    position: absolute;
+    border-radius: 50%;
+}
