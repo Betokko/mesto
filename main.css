@@ -11,6 +11,7 @@
 .profile__edit-button{align-self:flex-end;cursor:pointer;height:24px;margin-bottom:9px;margin-left:18px;transition:opacity .2s;width:24px}.profile__edit-button:hover{opacity:.6}@media (max-width:1023px){.profile__edit-button{height:18px;margin-left:10px;width:18px}}
 .profile__description{font-size:18px;font-weight:400;grid-area:"bottom";line-height:22px;margin:10px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media (max-width:1023px){.profile__description{font-size:14px;line-height:17px;text-align:center}}
 .profile__title{display:flex}
+.profile__edit-icon{background:50%/26px no-repeat url(93c771f5f8582261951d.png),rgba(0,0,0,.8);border-radius:50%;content:"";height:120px;position:absolute;width:120px}
 .insert-card{grid-gap:17px;display:grid;grid-template-columns:repeat(3,1fr);list-style-type:none;margin:50px auto 0;max-width:880px;padding:0}@media (max-width:1023px){.insert-card{grid-gap:20px;grid-template-columns:repeat(2,1fr);margin:35px auto 0;width:calc(100% - 38px)}}@media (max-width:424px){.insert-card{grid-template-columns:1fr}}
 .insert-card__item{background-color:#fff;border-radius:10px;color:#000;height:100%;overflow:hidden;position:relative}
 .insert-card__img{cursor:pointer;display:block;height:282px;-o-object-fit:cover;object-fit:cover;-o-object-position:top;object-position:top;width:100%}
