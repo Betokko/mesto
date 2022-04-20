@@ -34,8 +34,8 @@
 .popup__text-input{border:none;border-bottom:1px solid rgba(0,0,0,.2);font-size:14px;font-weight:400;height:27px;line-height:16.94px}
 .popup__title{font-size:24px;font-weight:900;line-height:29.05px;margin:0;padding-bottom:54px}@media (max-width:767px){.popup__title{font-size:18px;line-height:22px}}
 .popup_img{background:rgba(0,0,0,.9)}
-.popup__image{display:block;height:calc(75vh - 55px);-o-object-fit:contain;object-fit:contain}@media (max-width:767px){.popup__image{height:calc(100vh - 65px)}}
-.popup__image-container{display:flex;flex-direction:column;height:-webkit-fit-content;height:-moz-fit-content;height:fit-content;justify-content:center;margin:auto;max-height:75vh;max-width:75vw;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content}@media (max-width:767px){.popup__image-container{max-width:calc(100% - 80px)}}
+.popup__image{display:block;-o-object-fit:contain;object-fit:contain}
+.popup__image-container{display:flex;flex-direction:column;height:-webkit-fit-content;height:-moz-fit-content;height:fit-content;margin:auto;max-height:75vh;max-width:75vw;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content}@media (max-width:767px){.popup__image-container{max-width:calc(100% - 80px)}}
 .popup__close-btn_img{align-self:flex-end;padding-bottom:8px;position:relative;right:-40px;top:0;transition:opacity .2s}.popup__clos6e-btn_img:hover{opacity:.6}@media (max-width:767px){.popup__close-btn_img{padding-bottom:16px;right:0}}
 .popup__image-descr{word-wrap:break-word;font-size:12px;font-weight:400;line-height:15px;margin:0;padding-top:10px;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content}
 .popup__input_type_error{border-color:red}
