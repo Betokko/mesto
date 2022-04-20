@@ -1,11 +1,4 @@
 .popup__image {
     object-fit: contain;
     display: block;
-    height: calc(75vh - 15px - 40px);
-}
-
-@media (max-width: 767px) {
-    .popup__image {
-        height: calc(100vh - 25px - 40px);
-    }
 }
